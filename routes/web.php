@@ -128,5 +128,5 @@ Route::middleware(['isAdmin'])->group(function () {
     
     // =============== จัดการโปรโมรชั่น Code =============== //
     Route::get('/promotionlist', [PromotioncodeController::class, 'promotionlist'])->name('promotionlist');  
-    
+    Route::get('datatablePromocode', [PromotioncodeController::class, 'datatablePromocode'])->name('datatablePromocode.post'); 
 });
