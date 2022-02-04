@@ -9,6 +9,7 @@ use App\Http\Controllers\ManageController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ReportmatchController;
+use App\Http\Controllers\PromotioncodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -124,4 +125,8 @@ Route::middleware(['isAdmin'])->group(function () {
 
     // =============== รายงานการแข่งขัน =============== //
     Route::get('/statisticsRegis', [ReportmatchController::class, 'statisticsRegis'])->name('statisticsRegis'); 
+    
+    // =============== จัดการโปรโมรชั่น Code =============== //
+    Route::get('/promotionlist', [PromotioncodeController::class, 'promotionlist'])->name('promotionlist');  
+    
 });

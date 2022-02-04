@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 04, 2022 at 04:52 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.3.30
+-- Host: localhost:3306
+-- Generation Time: Feb 04, 2022 at 01:17 PM
+-- Server version: 5.6.48
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_fsprot`
+-- Database: `db_sport`
 --
 
 -- --------------------------------------------------------
@@ -41,7 +41,7 @@ CREATE TABLE `bill_tems` (
   `price_total` double(8,2) NOT NULL,
   `price_discount` double(8,2) NOT NULL,
   `net_total` double(8,2) NOT NULL,
-  `note` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `note` text COLLATE utf8mb4_unicode_ci,
   `deleted_at` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -56,12 +56,10 @@ CREATE TABLE `bill_tems` (
 INSERT INTO `bill_tems` (`id`, `order_number`, `team`, `sport_id`, `payment_status`, `payment_type`, `date_transfered`, `file_transfered`, `check_payment`, `bank_id`, `price_total`, `price_discount`, `net_total`, `note`, `deleted_at`, `created_at`, `updated_at`, `users_id`, `type_register`) VALUES
 (1, '202201171', NULL, NULL, '1', '1', '2022-01-17 03:58:00', '1722172768065240.jpg', '1', 1, 1800.00, 0.00, 1800.00, NULL, NULL, '2022-01-16 20:58:57', '2022-01-20 00:10:17', 1, NULL),
 (2, '202201172', NULL, NULL, '1', '1', '2022-01-17 07:01:00', '1722184319756272.jpg', '0', 1, 700.00, 0.00, 700.00, NULL, NULL, '2022-01-17 00:02:33', '2022-01-19 23:51:46', 2, NULL),
-(3, '202201173', NULL, NULL, '1', '1', '2022-01-17 07:02:00', '1722184324140512.jpg', '1', 1, 900.00, 0.00, 900.00, NULL, NULL, '2022-01-17 00:02:38', '2022-01-19 23:51:44', 3, NULL),
-(4, '202201174', NULL, NULL, '1', '1', '2022-01-17 12:06:00', '1722184382877881.jpg', '1', 1, 900.00, 0.00, 900.00, NULL, NULL, '2022-01-17 00:03:34', '2022-01-19 23:51:35', 5, NULL),
-(5, '202201175', NULL, NULL, '1', '1', '2022-01-17 08:20:00', '1722189186808164.jpg', '1', 1, 1800.00, 0.00, 1800.00, NULL, NULL, '2022-01-17 01:19:55', '2022-01-19 23:51:41', 7, NULL),
-(6, '202201186', NULL, NULL, '0', NULL, NULL, NULL, '1', NULL, 900.00, 0.00, 900.00, NULL, NULL, '2022-01-18 02:06:22', NULL, 1, NULL),
-(19, '2022020319', NULL, NULL, '1', '1', '2022-02-03 06:37:00', '1723722879743657.jpg', '1', 1, 700.00, 0.00, 700.00, NULL, NULL, '2022-02-02 23:37:19', NULL, 14, NULL),
-(20, '2022020320', NULL, NULL, '1', '1', '2022-02-03 06:51:00', '1723723747745162.jpg', '1', 1, 700.00, 0.00, 700.00, NULL, NULL, '2022-02-02 23:51:06', NULL, 15, NULL);
+(3, '202201173', NULL, NULL, '1', '1', '2022-01-17 07:02:00', '1722184324140512.jpg', '0', 1, 900.00, 0.00, 900.00, NULL, NULL, '2022-01-17 00:02:38', '2022-01-19 23:51:44', 3, NULL),
+(4, '202201174', NULL, NULL, '1', '1', '2022-01-17 12:06:00', '1722184382877881.jpg', '0', 1, 900.00, 0.00, 900.00, NULL, NULL, '2022-01-17 00:03:34', '2022-01-19 23:51:35', 5, NULL),
+(5, '202201175', NULL, NULL, '1', '1', '2022-01-17 08:20:00', '1722189186808164.jpg', '0', 1, 1800.00, 0.00, 1800.00, NULL, NULL, '2022-01-17 01:19:55', '2022-01-19 23:51:41', 7, NULL),
+(6, '202201186', NULL, NULL, '0', NULL, NULL, NULL, '0', NULL, 900.00, 0.00, 900.00, NULL, NULL, '2022-01-18 02:06:22', NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -105,9 +103,7 @@ INSERT INTO `cart_sport_tems` (`id`, `user_id`, `sport_id`, `sporttype_id`, `gen
 (7, 8, 2, 4, 34, '10', 900.00, 0.00, 900.00, NULL, NULL, NULL, NULL, NULL, '2022-01-17 00:52:10', 7, '2', 5, 2),
 (8, 9, 1, 1, 1, '5,8', 900.00, 0.00, 900.00, NULL, NULL, NULL, NULL, NULL, NULL, 9, '1', NULL, 1),
 (9, 9, 2, 4, 17, '13', 900.00, 0.00, 900.00, NULL, NULL, NULL, NULL, NULL, NULL, 9, '1', NULL, 1),
-(10, 1, 2, 4, 17, '12', 900.00, 0.00, 900.00, NULL, NULL, NULL, NULL, NULL, NULL, 1, '1', 6, 2),
-(23, 14, 2, 5, 22, '13', 700.00, 0.00, 700.00, NULL, NULL, NULL, NULL, '2022-02-02 23:37:18', NULL, 10, '1', 19, 2),
-(24, 15, 2, 5, 22, '14', 700.00, 0.00, 700.00, NULL, NULL, NULL, NULL, '2022-02-02 23:51:06', NULL, 10, '1', 20, 2);
+(10, 1, 2, 4, 17, '12', 900.00, 0.00, 900.00, NULL, NULL, NULL, NULL, NULL, NULL, 1, '1', 6, 2);
 
 -- --------------------------------------------------------
 
@@ -122,7 +118,7 @@ CREATE TABLE `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -348,7 +344,7 @@ CREATE TABLE `personal_access_tokens` (
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -364,6 +360,7 @@ CREATE TABLE `promotion_codes` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `sport_id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `detail` text COLLATE utf8mb4_unicode_ci,
   `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` char(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '0=ปิดใช้, 1=เปิดใช้, 2=ถูกใช้แล้ว, 3=ยกเลิก',
   `verify` char(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '0=ยังไม่ถูกใช้, 1=ถูกใช้แล้ว',
@@ -381,8 +378,8 @@ CREATE TABLE `promotion_codes` (
 -- Dumping data for table `promotion_codes`
 --
 
-INSERT INTO `promotion_codes` (`id`, `sport_id`, `name`, `code`, `status`, `verify`, `promotion_type`, `price_discount`, `sponsor_id`, `user_id`, `date_code`, `created_at`, `updated_at`, `user_create`) VALUES
-(1, 1, 'Promotion Code Package Free', 'AxF52x5a', '1', '0', 1, 100.00, NULL, NULL, NULL, '2021-12-02 02:49:45', '2022-01-05 19:27:16', 1);
+INSERT INTO `promotion_codes` (`id`, `sport_id`, `name`, `detail`, `code`, `status`, `verify`, `promotion_type`, `price_discount`, `sponsor_id`, `user_id`, `date_code`, `created_at`, `updated_at`, `user_create`) VALUES
+(1, 1, 'Promotion Code Package Free', NULL, 'AxF52x5a', '1', '0', 1, 100.00, NULL, NULL, NULL, '2021-12-02 02:49:45', '2022-01-05 19:27:16', 1);
 
 -- --------------------------------------------------------
 
@@ -419,13 +416,11 @@ CREATE TABLE `race_programs` (
 INSERT INTO `race_programs` (`id`, `bill_id`, `tems_id`, `tournaments_id`, `tournamentTypes_id`, `BIB`, `EPC`, `users_id`, `start_time`, `end_time`, `DNF`, `NRF`, `finish`, `status`, `receiver_name`, `receiver_tel`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 1, 2, 1, 2, '7001', NULL, 1, NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, '2022-01-16 21:06:34', NULL),
 (2, 1, 1, 2, 4, 'M-2001', NULL, 1, NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, '2022-01-16 21:06:34', '2022-01-16 21:25:19'),
-(3, 2, 3, 2, 5, 'M-3001', NULL, 2, NULL, NULL, NULL, NULL, NULL, '1', 'สายฟ้า ไพรวรรณ์', '0959086456', NULL, '2022-01-17 00:12:31', '2022-01-17 00:44:08'),
+(3, 2, 3, 2, 5, 'M-3001', NULL, 2, NULL, NULL, NULL, NULL, NULL, '2', 'สายฟ้า ไพรวรรณ์', '0959086456', NULL, '2022-01-17 00:12:31', '2022-01-17 00:44:08'),
 (4, 3, 4, 2, 4, 'M-2002', NULL, 3, NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, '2022-01-17 00:13:32', NULL),
 (5, 4, 5, 1, 1, '5001', NULL, 6, NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, '2022-01-17 00:14:54', NULL),
-(6, 5, 6, 2, 4, 'M-2003', NULL, 7, NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, '2022-01-17 01:20:21', NULL),
-(7, 5, 7, 2, 4, 'F-2001', NULL, 8, NULL, NULL, NULL, NULL, NULL, '2', 'saifah', '0959865453', NULL, '2022-01-17 01:20:21', '2022-02-03 02:37:17'),
-(20, 19, 23, 2, 5, 'M-3002', NULL, 14, NULL, NULL, NULL, NULL, NULL, '2', 'Admin', '-', NULL, '2022-02-02 23:37:19', NULL),
-(21, 20, 24, 2, 5, 'M-3003', NULL, 15, NULL, NULL, NULL, NULL, NULL, '2', 'Admin', '-', NULL, '2022-02-02 23:51:07', NULL);
+(6, 5, 6, 2, 4, 'M-2003', NULL, 7, NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, '2022-01-17 01:20:21', '2022-01-17 01:29:08'),
+(7, 5, 7, 2, 4, 'F-2001', NULL, 8, NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, '2022-01-17 01:20:21', '2022-01-17 01:29:21');
 
 -- --------------------------------------------------------
 
@@ -480,7 +475,7 @@ CREATE TABLE `tournaments` (
   `abbreviation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ตัวย่อ',
   `location` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `imgname` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `imgname` text COLLATE utf8mb4_unicode_ci,
   `status_event` char(1) COLLATE utf8mb4_unicode_ci DEFAULT '0' COMMENT '0=ปิด, 1=เปิด ',
   `status_register` char(1) COLLATE utf8mb4_unicode_ci DEFAULT '0' COMMENT '0=ปิดสมัคร, 1=เปิดสมัคร ',
   `status_pomotion` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '0=ปิดใช้, 1=เปิดใช้ ',
@@ -566,7 +561,7 @@ CREATE TABLE `users` (
   `nationality` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `blood` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `disease` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci,
   `district` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `amphoe` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `province` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -599,10 +594,7 @@ INSERT INTO `users` (`id`, `name`, `lname`, `email`, `email_verified_at`, `passw
 (7, 'พงศกร', 'สิงหเสรี', 'vorz7k1@gmail.com', NULL, NULL, NULL, '2022-01-17 00:50:41', '2022-01-17 00:43:40', 'M', NULL, NULL, '089-923-4668', 23, 8, 1982, '1', '3-1012-00157-76-5', 'ไทย', 'AB', NULL, '100/187', 'คูคต', 'ลำลูกกา', 'ปทุมธานี', 'ไทย', '12130', 'poommy', 'singhaseree', '089-999-9999', NULL, NULL, NULL, NULL, '1', '108137944294721288725', 'https://lh3.googleusercontent.com/a-/AOh14GgbXS3vDZoPPoULCgMf36UQfSOZ6E6lpiT-WGuBqw=s96-c', 1),
 (8, 'poommy', 'singhaseree', 'vorz7k2@gmail.com', NULL, NULL, NULL, '2022-01-17 00:52:08', NULL, 'F', NULL, NULL, '089-999-9999', 13, 11, 1975, '1', '8-9898-98989-89', 'ไทย', 'AB', NULL, '11111', 'คูคต', 'ลำลูกกา', 'ปทุมธานี', 'ไทย', '12130', 'เก่ง', 'เก่ง', '089-923-4668', NULL, NULL, NULL, NULL, '1', NULL, NULL, 1),
 (9, 'Saifah', 'Phaiwan', 'puttasa_fa@hotmail.com', NULL, NULL, NULL, '2022-01-17 19:46:02', '2022-01-17 19:43:37', 'M', NULL, NULL, '080-056-8953', 28, 10, 1996, '1', '1-1996-00196-24-6', 'ไทย', 'B', NULL, '81 หมู่ 6 ต.ช่องสาริกา อ.พัฒนานิคม จ.ลพบุรี', 'ช่องสาริกา', 'พัฒนานิคม', 'ลพบุรี', 'ไทย', '15220', '-', '-', '080-056-8953', NULL, NULL, NULL, NULL, '1', '4597129987041422', 'https://graph.facebook.com/v3.3/4597129987041422/picture?type=normal', 1),
-(10, 'Dev.', 'Phaiwan', 'farmchokchaisport2016@gmail.com', NULL, '$2y$10$L0BiTGJfMDlfLHNP4fvVNeMCNEpET9jt1ri4rh4WOONZvhQEaOA0.', 'qNFnEbxi3sD1TNsOTbPvaY8WtXxLWagknUZtsRnnlxTNZY6hMd3UfxxvuPXR', '2022-01-19 23:22:44', '2022-01-19 23:27:54', 'M', NULL, NULL, '080-056-8953', 28, 10, 1996, '1', '1-1996-00196-24-6', 'ไทย', 'B', '-', '81/ m6', 'ช่องสาริกา', 'พัฒนานิคม', 'ลพบุรี', 'ไทย', '15220', '-', '-', '080-056-8953', NULL, NULL, NULL, NULL, '2', NULL, NULL, 1),
-(14, 'Saifah', 'phaiwan', 'saifah1928@gmail.com', NULL, NULL, NULL, '2022-02-02 23:37:18', NULL, 'M', NULL, NULL, '080-056-8953', 14, 10, 1934, '1', '1-1889-54645-46-5', 'ไทย', 'AB', NULL, '87/45', 'คลองหนึ่ง', 'คลองหลวง', 'ปทุมธานี', 'ไทย', '12120', '-', '-', '080-056-8953', NULL, NULL, NULL, NULL, '1', NULL, NULL, 1),
-(15, 'Phaiwan', '001', 'saifah19x28@gmail.com', NULL, NULL, NULL, '2022-02-02 23:51:06', NULL, 'M', NULL, NULL, '080-056-8953', 8, 9, 1937, '1', '1-9498-56566-55-4', 'ไทย', 'B', NULL, '89/99', 'คลองสามประเวศ', 'ลาดกระบัง', 'กรุงเทพมหานคร', 'ไทย', '10520', '-', '-', '080-056-8953', NULL, NULL, NULL, NULL, '1', NULL, NULL, 1),
-(20, 'Admin Drive Thru', NULL, 'dev.saifahA@gmail.com', NULL, '$2y$10$UbhXLhr49/jCB7LZ8ftFpOgNkaly69BXwxIb4p.Lp.ljcbYxHfL4S', NULL, '2022-02-03 20:08:38', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2', NULL, NULL, NULL);
+(10, 'Dev.', 'Phaiwan', 'saifah1928@gmail.com', NULL, '$2y$10$L0BiTGJfMDlfLHNP4fvVNeMCNEpET9jt1ri4rh4WOONZvhQEaOA0.', 'GBqDTv0V9EYQvFJxwemCExWFCmTu2KLxkFQW9lzFvifLP3TSafF5wKUUa4VO', '2022-01-19 23:22:44', '2022-01-19 23:27:54', 'M', NULL, NULL, '080-056-8953', 28, 10, 1996, '1', '1-1996-00196-24-6', 'ไทย', 'B', '-', '81/ m6', 'ช่องสาริกา', 'พัฒนานิคม', 'ลพบุรี', 'ไทย', '15220', '-', '-', '080-056-8953', NULL, NULL, NULL, NULL, '2', NULL, NULL, 1);
 
 --
 -- Indexes for dumped tables
@@ -720,13 +712,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bill_tems`
 --
 ALTER TABLE `bill_tems`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `cart_sport_tems`
 --
 ALTER TABLE `cart_sport_tems`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -780,7 +772,7 @@ ALTER TABLE `promotion_codes`
 -- AUTO_INCREMENT for table `race_programs`
 --
 ALTER TABLE `race_programs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `souvenirs`
@@ -804,7 +796,7 @@ ALTER TABLE `tournament_types`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
