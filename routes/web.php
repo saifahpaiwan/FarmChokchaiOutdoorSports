@@ -129,4 +129,14 @@ Route::middleware(['isAdmin'])->group(function () {
     // =============== จัดการโปรโมรชั่น Code =============== //
     Route::get('/promotionlist', [PromotioncodeController::class, 'promotionlist'])->name('promotionlist');  
     Route::get('datatablePromocode', [PromotioncodeController::class, 'datatablePromocode'])->name('datatablePromocode.post'); 
+    Route::post('ajaxPreviwePromocode', [PromotioncodeController::class, 'ajaxPreviwePromocode'])->name('ajaxPreviwePromocode.post');  
+    Route::get('/promotioncreate', [PromotioncodeController::class, 'promotioncreate'])->name('promotioncreate'); 
+    Route::get('/promotionupdate/{id}', [PromotioncodeController::class, 'promotionupdate'])->name('promotionupdate');  
+     
+    Route::post('promotioncodesave', [PromotioncodeController::class, 'promotioncodesave'])->name('promotioncodesave.post'); 
+    Route::post('promotioncodeupdate', [PromotioncodeController::class, 'promotioncodeupdate'])->name('promotioncodeupdate.post');   
+    Route::post('promotioncodedelete', [PromotioncodeController::class, 'promotioncodedelete'])->name('promotioncodedelete.post');   
+    Route::get('datatableSponsors', [PromotioncodeController::class, 'datatableSponsors'])->name('datatableSponsors.post');  
+    Route::get('generatePDF_promocode', [PromotioncodeController::class, 'generatePDF_promocode'])->name('generatePDF_promocode.post'); 
+    
 });
