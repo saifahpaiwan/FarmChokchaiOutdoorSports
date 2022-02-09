@@ -181,7 +181,7 @@ class ManageController extends Controller
                     $itmes[$row->bill_id]['payment_type']=$payment_type;
                     $itmes[$row->bill_id]['file_transfered']=$row->file_transfered;
                     $itmes[$row->bill_id]['date_transfered']=$row->date_transfered;
-                    $itmes[$row->bill_id]['created_at']=date("d/m/Y", strtotime($row->created_at));
+                    $itmes[$row->bill_id]['created_at']=date("m/d/Y", strtotime($row->created_at));
 
                     if($row->tems_id==$Tems_id){
                         $itmes[$row->bill_id]['sportsman'][$row->tems_id]['sportsman_id']=$row->tems_id;
@@ -402,7 +402,7 @@ class ManageController extends Controller
                 return $status;
             })    
             ->addColumn('created_at', function($row){    
-                return date("d/m/Y", strtotime($row->created_at));
+                return date("m/d/Y", strtotime($row->created_at));
             }) 
             ->addColumn('btnStatus', function($row){     
                 $disabled="disabled";
@@ -534,7 +534,7 @@ class ManageController extends Controller
                 return $payment_type;
             }) 
             ->addColumn('date_transfered', function($row){    
-                return date("d/m/Y", strtotime($row->date_transfered))." ".date("H:i:s", strtotime($row->date_transfered))." น.";
+                return date("m/d/Y", strtotime($row->date_transfered))." ".date("H:i:s", strtotime($row->date_transfered))." น.";
             })  
             ->addColumn('net_total', function($row){    
                 return number_format($row->net_total, 2)." ฿";
@@ -564,7 +564,7 @@ class ManageController extends Controller
                 return $status;
             })  
             ->addColumn('created_at', function($row){    
-                return date("d/m/Y", strtotime($row->created_at));
+                return date("m/d/Y", strtotime($row->created_at));
             })
             ->addColumn('button_viwe', function($row){    
                 return '<div class="text-right"><button type="button" class="btn btn-primary waves-effect waves-light btn-sm" 
@@ -1032,7 +1032,7 @@ class ManageController extends Controller
                 return $row->email;
             })  
             ->addColumn('created_at', function($row){    
-                return date("d/m/Y", strtotime($row->created_at));
+                return date("m/d/Y", strtotime($row->created_at));
             })  
             ->addColumn('is_users', function($row){      
                 return  "ผู้ใช้งานระบบ";

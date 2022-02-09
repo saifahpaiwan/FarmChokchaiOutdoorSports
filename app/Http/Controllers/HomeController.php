@@ -355,13 +355,13 @@ class HomeController extends Controller
                 $items[$row->bill_id]['net_total_fm'] = number_format($row->net_total, 2);  
 
                 $items[$row->bill_id]['created_at'] = $row->created_at;
-                $items[$row->bill_id]['created_at_strtotime'] = date("d/m/Y", strtotime($row->created_at)); 
+                $items[$row->bill_id]['created_at_strtotime'] = date("m/d/Y", strtotime($row->created_at)); 
                 $items[$row->bill_id]['created_at_carbon'] = Carbon::parse($row->created_at)->diffForHumans(); 
 
                 $items[$row->bill_id]['payment_status'] = $row->payment_status;
                 $items[$row->bill_id]['payment_type'] = $row->payment_type;
                 $items[$row->bill_id]['date_transfered'] = $row->date_transfered;
-                $items[$row->bill_id]['date_transfered_strtotime'] = date("d/m/Y", strtotime($row->date_transfered)); 
+                $items[$row->bill_id]['date_transfered_strtotime'] = date("m/d/Y", strtotime($row->date_transfered)); 
                 $items[$row->bill_id]['check_payment'] = $row->check_payment;
                 $items[$row->bill_id]['file_transfered'] = $row->file_transfered;
                 $items[$row->bill_id]['note'] = $row->note;

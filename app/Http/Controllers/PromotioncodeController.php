@@ -123,7 +123,7 @@ class PromotioncodeController extends Controller
                 return $row->userCreate;
             })   
             ->addColumn('created_at', function($row){    
-                return date("d/m/Y", strtotime($row->created_at));
+                return date("m/d/Y", strtotime($row->created_at));
             })  
             ->addColumn('status', function($row){    
                 $status=''; 
@@ -202,8 +202,8 @@ class PromotioncodeController extends Controller
                 $items[$row->id]['verify'] = $row->verify; 
 
                 $items[$row->id]['price_discount'] = number_format($row->price_discount, 2);
-                $items[$row->id]['date_code']  = date("d/m/Y", strtotime($row->date_code));
-                $items[$row->id]['created_at'] = date("d/m/Y", strtotime($row->created_at));
+                $items[$row->id]['date_code']  = date("m/d/Y", strtotime($row->date_code));
+                $items[$row->id]['created_at'] = date("m/d/Y", strtotime($row->created_at));
                 $items[$row->id]['users_fname'] = $row->users_fname;
                 $items[$row->id]['users_lname'] = $row->users_lname;
                 $items[$row->id]['fname'] = $row->fname;
