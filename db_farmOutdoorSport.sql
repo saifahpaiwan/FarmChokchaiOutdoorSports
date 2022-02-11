@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Feb 04, 2022 at 01:17 PM
--- Server version: 5.6.48
--- PHP Version: 7.4.27
+-- Host: 127.0.0.1
+-- Generation Time: Feb 11, 2022 at 11:23 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 7.3.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_sport`
+-- Database: `db_fsprot`
 --
 
 -- --------------------------------------------------------
@@ -41,7 +41,7 @@ CREATE TABLE `bill_tems` (
   `price_total` double(8,2) NOT NULL,
   `price_discount` double(8,2) NOT NULL,
   `net_total` double(8,2) NOT NULL,
-  `note` text COLLATE utf8mb4_unicode_ci,
+  `note` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -56,10 +56,12 @@ CREATE TABLE `bill_tems` (
 INSERT INTO `bill_tems` (`id`, `order_number`, `team`, `sport_id`, `payment_status`, `payment_type`, `date_transfered`, `file_transfered`, `check_payment`, `bank_id`, `price_total`, `price_discount`, `net_total`, `note`, `deleted_at`, `created_at`, `updated_at`, `users_id`, `type_register`) VALUES
 (1, '202201171', NULL, NULL, '1', '1', '2022-01-17 03:58:00', '1722172768065240.jpg', '1', 1, 1800.00, 0.00, 1800.00, NULL, NULL, '2022-01-16 20:58:57', '2022-01-20 00:10:17', 1, NULL),
 (2, '202201172', NULL, NULL, '1', '1', '2022-01-17 07:01:00', '1722184319756272.jpg', '0', 1, 700.00, 0.00, 700.00, NULL, NULL, '2022-01-17 00:02:33', '2022-01-19 23:51:46', 2, NULL),
-(3, '202201173', NULL, NULL, '1', '1', '2022-01-17 07:02:00', '1722184324140512.jpg', '0', 1, 900.00, 0.00, 900.00, NULL, NULL, '2022-01-17 00:02:38', '2022-01-19 23:51:44', 3, NULL),
-(4, '202201174', NULL, NULL, '1', '1', '2022-01-17 12:06:00', '1722184382877881.jpg', '0', 1, 900.00, 0.00, 900.00, NULL, NULL, '2022-01-17 00:03:34', '2022-01-19 23:51:35', 5, NULL),
-(5, '202201175', NULL, NULL, '1', '1', '2022-01-17 08:20:00', '1722189186808164.jpg', '0', 1, 1800.00, 0.00, 1800.00, NULL, NULL, '2022-01-17 01:19:55', '2022-01-19 23:51:41', 7, NULL),
-(6, '202201186', NULL, NULL, '0', NULL, NULL, NULL, '0', NULL, 900.00, 0.00, 900.00, NULL, NULL, '2022-01-18 02:06:22', NULL, 1, NULL);
+(3, '202201173', NULL, NULL, '1', '1', '2022-01-17 07:02:00', '1722184324140512.jpg', '1', 1, 900.00, 0.00, 900.00, NULL, NULL, '2022-01-17 00:02:38', '2022-01-19 23:51:44', 3, NULL),
+(4, '202201174', NULL, NULL, '1', '1', '2022-01-17 12:06:00', '1722184382877881.jpg', '1', 1, 900.00, 0.00, 900.00, NULL, NULL, '2022-01-17 00:03:34', '2022-01-19 23:51:35', 5, NULL),
+(5, '202201175', NULL, NULL, '1', '1', '2022-01-17 08:20:00', '1722189186808164.jpg', '1', 1, 1800.00, 0.00, 1800.00, NULL, NULL, '2022-01-17 01:19:55', '2022-01-19 23:51:41', 7, NULL),
+(6, '202201186', NULL, NULL, '0', NULL, NULL, NULL, '1', NULL, 900.00, 0.00, 900.00, NULL, NULL, '2022-01-18 02:06:22', NULL, 1, NULL),
+(19, '2022020319', NULL, NULL, '1', '1', '2022-02-03 06:37:00', '1723722879743657.jpg', '1', 1, 700.00, 0.00, 700.00, NULL, NULL, '2022-02-02 23:37:19', NULL, 14, NULL),
+(20, '2022020320', NULL, NULL, '1', '1', '2022-02-03 06:51:00', '1723723747745162.jpg', '1', 1, 700.00, 0.00, 700.00, NULL, NULL, '2022-02-02 23:51:06', NULL, 15, NULL);
 
 -- --------------------------------------------------------
 
@@ -103,7 +105,9 @@ INSERT INTO `cart_sport_tems` (`id`, `user_id`, `sport_id`, `sporttype_id`, `gen
 (7, 8, 2, 4, 34, '10', 900.00, 0.00, 900.00, NULL, NULL, NULL, NULL, NULL, '2022-01-17 00:52:10', 7, '2', 5, 2),
 (8, 9, 1, 1, 1, '5,8', 900.00, 0.00, 900.00, NULL, NULL, NULL, NULL, NULL, NULL, 9, '1', NULL, 1),
 (9, 9, 2, 4, 17, '13', 900.00, 0.00, 900.00, NULL, NULL, NULL, NULL, NULL, NULL, 9, '1', NULL, 1),
-(10, 1, 2, 4, 17, '12', 900.00, 0.00, 900.00, NULL, NULL, NULL, NULL, NULL, NULL, 1, '1', 6, 2);
+(10, 1, 2, 4, 17, '12', 900.00, 0.00, 900.00, NULL, NULL, NULL, NULL, NULL, NULL, 1, '1', 6, 2),
+(23, 14, 2, 5, 22, '13', 700.00, 0.00, 700.00, NULL, NULL, NULL, NULL, '2022-02-02 23:37:18', NULL, 10, '1', 19, 2),
+(24, 15, 2, 5, 22, '14', 700.00, 0.00, 700.00, NULL, NULL, NULL, NULL, '2022-02-02 23:51:06', NULL, 10, '1', 20, 2);
 
 -- --------------------------------------------------------
 
@@ -118,7 +122,7 @@ CREATE TABLE `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -344,7 +348,7 @@ CREATE TABLE `personal_access_tokens` (
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -360,15 +364,15 @@ CREATE TABLE `promotion_codes` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `sport_id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `detail` text COLLATE utf8mb4_unicode_ci,
+  `detail` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` char(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '0=ปิดใช้, 1=เปิดใช้, 2=ถูกใช้แล้ว, 3=ยกเลิก',
   `verify` char(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '0=ยังไม่ถูกใช้, 1=ถูกใช้แล้ว',
   `promotion_type` int(11) NOT NULL,
   `price_discount` double(8,2) NOT NULL,
-  `sponsor_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `date_code` timestamp NULL DEFAULT NULL COMMENT 'วันที่ใช้ Code',
+  `note` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `user_create` int(11) DEFAULT NULL
@@ -378,8 +382,72 @@ CREATE TABLE `promotion_codes` (
 -- Dumping data for table `promotion_codes`
 --
 
-INSERT INTO `promotion_codes` (`id`, `sport_id`, `name`, `detail`, `code`, `status`, `verify`, `promotion_type`, `price_discount`, `sponsor_id`, `user_id`, `date_code`, `created_at`, `updated_at`, `user_create`) VALUES
-(1, 1, 'Promotion Code Package Free', NULL, 'AxF52x5a', '1', '0', 1, 100.00, NULL, NULL, NULL, '2021-12-02 02:49:45', '2022-01-05 19:27:16', 1);
+INSERT INTO `promotion_codes` (`id`, `sport_id`, `name`, `detail`, `code`, `status`, `verify`, `promotion_type`, `price_discount`, `user_id`, `date_code`, `note`, `created_at`, `updated_at`, `user_create`) VALUES
+(1, 1, 'Thai beverage Code Free 200 ฿', 'บริษัท ไทยเบฟเวอเรจ จำกัด รู้จักกันในชื่อ ไทยเบฟ เป็นบริษัทที่ใหญ่ที่สุดในประเทศไทยและหนึ่งในบริษัทเครื่องดื่มที่ใหญ่ที่สุดในเอเชียตะวันออกเฉียงใต้ ที่มีโรงกลั่นสุราในประเทศไทย', 'cjctzp', '1', '0', 1, 200.00, NULL, NULL, 'ผู้ออกโค้ด : Thai beverage', '2022-02-09 00:50:15', NULL, 10),
+(2, 1, 'Thai beverage Code Free 200 ฿', 'บริษัท ไทยเบฟเวอเรจ จำกัด รู้จักกันในชื่อ ไทยเบฟ เป็นบริษัทที่ใหญ่ที่สุดในประเทศไทยและหนึ่งในบริษัทเครื่องดื่มที่ใหญ่ที่สุดในเอเชียตะวันออกเฉียงใต้ ที่มีโรงกลั่นสุราในประเทศไทย', '6kijbp', '1', '0', 1, 200.00, NULL, NULL, 'ผู้ออกโค้ด : Thai beverage', '2022-02-09 00:50:15', NULL, 10),
+(3, 1, 'Thai beverage Code Free 200 ฿', 'บริษัท ไทยเบฟเวอเรจ จำกัด รู้จักกันในชื่อ ไทยเบฟ เป็นบริษัทที่ใหญ่ที่สุดในประเทศไทยและหนึ่งในบริษัทเครื่องดื่มที่ใหญ่ที่สุดในเอเชียตะวันออกเฉียงใต้ ที่มีโรงกลั่นสุราในประเทศไทย', '221efr', '1', '0', 1, 200.00, NULL, NULL, 'ผู้ออกโค้ด : Thai beverage', '2022-02-09 00:50:15', NULL, 10),
+(4, 1, 'Thai beverage Code Free 200 ฿', 'บริษัท ไทยเบฟเวอเรจ จำกัด รู้จักกันในชื่อ ไทยเบฟ เป็นบริษัทที่ใหญ่ที่สุดในประเทศไทยและหนึ่งในบริษัทเครื่องดื่มที่ใหญ่ที่สุดในเอเชียตะวันออกเฉียงใต้ ที่มีโรงกลั่นสุราในประเทศไทย', 'kpz6iz', '1', '0', 1, 200.00, NULL, NULL, 'ผู้ออกโค้ด : Thai beverage', '2022-02-09 00:50:15', NULL, 10),
+(5, 1, 'Thai beverage Code Free 200 ฿', 'บริษัท ไทยเบฟเวอเรจ จำกัด รู้จักกันในชื่อ ไทยเบฟ เป็นบริษัทที่ใหญ่ที่สุดในประเทศไทยและหนึ่งในบริษัทเครื่องดื่มที่ใหญ่ที่สุดในเอเชียตะวันออกเฉียงใต้ ที่มีโรงกลั่นสุราในประเทศไทย', '4wd2ylk', '1', '0', 1, 200.00, NULL, NULL, 'ผู้ออกโค้ด : Thai beverage', '2022-02-09 00:50:15', NULL, 10),
+(6, 1, 'Thai beverage Code Free 200 ฿', 'บริษัท ไทยเบฟเวอเรจ จำกัด รู้จักกันในชื่อ ไทยเบฟ เป็นบริษัทที่ใหญ่ที่สุดในประเทศไทยและหนึ่งในบริษัทเครื่องดื่มที่ใหญ่ที่สุดในเอเชียตะวันออกเฉียงใต้ ที่มีโรงกลั่นสุราในประเทศไทย', 'fpfcz3f', '1', '0', 1, 200.00, NULL, NULL, 'ผู้ออกโค้ด : Thai beverage', '2022-02-09 00:50:15', NULL, 10),
+(7, 1, 'Thai beverage Code Free 200 ฿', 'บริษัท ไทยเบฟเวอเรจ จำกัด รู้จักกันในชื่อ ไทยเบฟ เป็นบริษัทที่ใหญ่ที่สุดในประเทศไทยและหนึ่งในบริษัทเครื่องดื่มที่ใหญ่ที่สุดในเอเชียตะวันออกเฉียงใต้ ที่มีโรงกลั่นสุราในประเทศไทย', 'htln6yg', '1', '0', 1, 200.00, NULL, NULL, 'ผู้ออกโค้ด : Thai beverage', '2022-02-09 00:50:15', NULL, 10),
+(8, 1, 'Thai beverage Code Free 200 ฿', 'บริษัท ไทยเบฟเวอเรจ จำกัด รู้จักกันในชื่อ ไทยเบฟ เป็นบริษัทที่ใหญ่ที่สุดในประเทศไทยและหนึ่งในบริษัทเครื่องดื่มที่ใหญ่ที่สุดในเอเชียตะวันออกเฉียงใต้ ที่มีโรงกลั่นสุราในประเทศไทย', 'iarhx1', '1', '0', 1, 200.00, NULL, NULL, 'ผู้ออกโค้ด : Thai beverage', '2022-02-09 00:50:15', NULL, 10),
+(9, 1, 'Thai beverage Code Free 200 ฿', 'บริษัท ไทยเบฟเวอเรจ จำกัด รู้จักกันในชื่อ ไทยเบฟ เป็นบริษัทที่ใหญ่ที่สุดในประเทศไทยและหนึ่งในบริษัทเครื่องดื่มที่ใหญ่ที่สุดในเอเชียตะวันออกเฉียงใต้ ที่มีโรงกลั่นสุราในประเทศไทย', 'hktl9b', '1', '0', 1, 200.00, NULL, NULL, 'ผู้ออกโค้ด : Thai beverage', '2022-02-09 00:50:15', NULL, 10),
+(10, 1, 'Thai beverage Code Free 200 ฿', 'บริษัท ไทยเบฟเวอเรจ จำกัด รู้จักกันในชื่อ ไทยเบฟ เป็นบริษัทที่ใหญ่ที่สุดในประเทศไทยและหนึ่งในบริษัทเครื่องดื่มที่ใหญ่ที่สุดในเอเชียตะวันออกเฉียงใต้ ที่มีโรงกลั่นสุราในประเทศไทย', 'wry6hp', '1', '0', 1, 200.00, NULL, NULL, 'ผู้ออกโค้ด : Thai beverage', '2022-02-09 00:50:15', NULL, 10),
+(11, 2, 'Farm Chokchai Promo Code New !', 'ร้านค้าที่รวบรวมและจำหน่ายสินค้าที่ มาจากการคัดสรรวัตถุดิบ ผลิตผลที่ปลูกและผลิตด้วยความพิถีพิถันภายในฟาร์มด้วยแนวคิด “สดเหมือนอยู่ในฟาร์มโชคชัย” อัน ประกอบด้วย ...', 'btxjtz', '1', '0', 1, 500.00, NULL, NULL, 'Farm Chokchai Code', '2022-02-09 01:04:46', NULL, 10),
+(12, 2, 'Farm Chokchai Promo Code New !', 'ร้านค้าที่รวบรวมและจำหน่ายสินค้าที่ มาจากการคัดสรรวัตถุดิบ ผลิตผลที่ปลูกและผลิตด้วยความพิถีพิถันภายในฟาร์มด้วยแนวคิด “สดเหมือนอยู่ในฟาร์มโชคชัย” อัน ประกอบด้วย ...', '61txp5', '1', '0', 1, 500.00, NULL, NULL, 'Farm Chokchai Code', '2022-02-09 01:04:47', NULL, 10),
+(13, 2, 'Farm Chokchai Promo Code New !', 'ร้านค้าที่รวบรวมและจำหน่ายสินค้าที่ มาจากการคัดสรรวัตถุดิบ ผลิตผลที่ปลูกและผลิตด้วยความพิถีพิถันภายในฟาร์มด้วยแนวคิด “สดเหมือนอยู่ในฟาร์มโชคชัย” อัน ประกอบด้วย ...', '0fu921', '1', '0', 1, 500.00, NULL, NULL, 'Farm Chokchai Code', '2022-02-09 01:04:48', NULL, 10),
+(14, 2, 'Farm Chokchai Promo Code New !', 'ร้านค้าที่รวบรวมและจำหน่ายสินค้าที่ มาจากการคัดสรรวัตถุดิบ ผลิตผลที่ปลูกและผลิตด้วยความพิถีพิถันภายในฟาร์มด้วยแนวคิด “สดเหมือนอยู่ในฟาร์มโชคชัย” อัน ประกอบด้วย ...', 'btxjtz', '1', '0', 1, 500.00, NULL, NULL, 'Farm Chokchai Code', '2022-02-09 01:04:48', NULL, 10),
+(15, 2, 'Farm Chokchai Promo Code New !', 'ร้านค้าที่รวบรวมและจำหน่ายสินค้าที่ มาจากการคัดสรรวัตถุดิบ ผลิตผลที่ปลูกและผลิตด้วยความพิถีพิถันภายในฟาร์มด้วยแนวคิด “สดเหมือนอยู่ในฟาร์มโชคชัย” อัน ประกอบด้วย ...', '61txp5', '1', '0', 1, 500.00, NULL, NULL, 'Farm Chokchai Code', '2022-02-09 01:04:49', NULL, 10),
+(16, 2, 'Farm Chokchai Promo Code New !', 'ร้านค้าที่รวบรวมและจำหน่ายสินค้าที่ มาจากการคัดสรรวัตถุดิบ ผลิตผลที่ปลูกและผลิตด้วยความพิถีพิถันภายในฟาร์มด้วยแนวคิด “สดเหมือนอยู่ในฟาร์มโชคชัย” อัน ประกอบด้วย ...', '0fu921', '1', '0', 1, 500.00, NULL, NULL, 'Farm Chokchai Code', '2022-02-09 01:04:49', NULL, 10),
+(17, 2, 'Code Free สปอนเซอร์ช้าง', 'เมื่อนึกถึงสปอนเซอร์หลัก ที่สนับสนุนวงการลูกหนังไทย มาอย่างต่อเนื่องเป็นเวลากว่า 20 ปี ทุกคนคงคิดถึง แบรนด์เครื่องดื่มตรา \"ช้าง\"', '8nqi8', '1', '0', 1, 100.00, NULL, NULL, 'สปอนเซอร์ช้าง', '2022-02-09 01:07:10', NULL, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `promotion_codes_sponsors`
+--
+
+CREATE TABLE `promotion_codes_sponsors` (
+  `id` int(11) NOT NULL,
+  `code_id` int(11) NOT NULL,
+  `sponsors_id` int(11) NOT NULL,
+  `deleted_at` char(1) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `promotion_codes_sponsors`
+--
+
+INSERT INTO `promotion_codes_sponsors` (`id`, `code_id`, `sponsors_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, NULL, '2022-02-09 00:50:15', NULL),
+(2, 1, 3, NULL, '2022-02-09 00:50:15', NULL),
+(3, 2, 1, NULL, '2022-02-09 00:50:15', NULL),
+(4, 2, 3, NULL, '2022-02-09 00:50:15', NULL),
+(5, 3, 1, NULL, '2022-02-09 00:50:15', NULL),
+(6, 3, 3, NULL, '2022-02-09 00:50:15', NULL),
+(7, 4, 1, NULL, '2022-02-09 00:50:15', NULL),
+(8, 4, 3, NULL, '2022-02-09 00:50:15', NULL),
+(9, 5, 1, NULL, '2022-02-09 00:50:15', NULL),
+(10, 5, 3, NULL, '2022-02-09 00:50:15', NULL),
+(11, 6, 1, NULL, '2022-02-09 00:50:15', NULL),
+(12, 6, 3, NULL, '2022-02-09 00:50:15', NULL),
+(13, 7, 1, NULL, '2022-02-09 00:50:15', NULL),
+(14, 7, 3, NULL, '2022-02-09 00:50:15', NULL),
+(15, 8, 1, NULL, '2022-02-09 00:50:15', NULL),
+(16, 8, 3, NULL, '2022-02-09 00:50:15', NULL),
+(17, 9, 1, NULL, '2022-02-09 00:50:15', NULL),
+(18, 9, 3, NULL, '2022-02-09 00:50:15', NULL),
+(19, 10, 1, NULL, '2022-02-09 00:50:16', NULL),
+(20, 10, 3, NULL, '2022-02-09 00:50:16', NULL),
+(21, 11, 3, NULL, '2022-02-09 01:04:47', NULL),
+(22, 12, 3, NULL, '2022-02-09 01:04:48', NULL),
+(23, 13, 3, NULL, '2022-02-09 01:04:48', NULL),
+(24, 14, 3, NULL, '2022-02-09 01:04:48', NULL),
+(25, 15, 3, NULL, '2022-02-09 01:04:49', NULL),
+(26, 16, 3, NULL, '2022-02-09 01:04:49', NULL),
+(27, 17, 2, NULL, '2022-02-09 01:07:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -416,11 +484,13 @@ CREATE TABLE `race_programs` (
 INSERT INTO `race_programs` (`id`, `bill_id`, `tems_id`, `tournaments_id`, `tournamentTypes_id`, `BIB`, `EPC`, `users_id`, `start_time`, `end_time`, `DNF`, `NRF`, `finish`, `status`, `receiver_name`, `receiver_tel`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 1, 2, 1, 2, '7001', NULL, 1, NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, '2022-01-16 21:06:34', NULL),
 (2, 1, 1, 2, 4, 'M-2001', NULL, 1, NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, '2022-01-16 21:06:34', '2022-01-16 21:25:19'),
-(3, 2, 3, 2, 5, 'M-3001', NULL, 2, NULL, NULL, NULL, NULL, NULL, '2', 'สายฟ้า ไพรวรรณ์', '0959086456', NULL, '2022-01-17 00:12:31', '2022-01-17 00:44:08'),
+(3, 2, 3, 2, 5, 'M-3001', NULL, 2, NULL, NULL, NULL, NULL, NULL, '1', 'สายฟ้า ไพรวรรณ์', '0959086456', NULL, '2022-01-17 00:12:31', '2022-01-17 00:44:08'),
 (4, 3, 4, 2, 4, 'M-2002', NULL, 3, NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, '2022-01-17 00:13:32', NULL),
 (5, 4, 5, 1, 1, '5001', NULL, 6, NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, '2022-01-17 00:14:54', NULL),
-(6, 5, 6, 2, 4, 'M-2003', NULL, 7, NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, '2022-01-17 01:20:21', '2022-01-17 01:29:08'),
-(7, 5, 7, 2, 4, 'F-2001', NULL, 8, NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, '2022-01-17 01:20:21', '2022-01-17 01:29:21');
+(6, 5, 6, 2, 4, 'M-2003', NULL, 7, NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, '2022-01-17 01:20:21', NULL),
+(7, 5, 7, 2, 4, 'F-2001', NULL, 8, NULL, NULL, NULL, NULL, NULL, '2', 'saifah', '0959865453', NULL, '2022-01-17 01:20:21', '2022-02-03 02:37:17'),
+(20, 19, 23, 2, 5, 'M-3002', NULL, 14, NULL, NULL, NULL, NULL, NULL, '2', 'Admin', '-', NULL, '2022-02-02 23:37:19', NULL),
+(21, 20, 24, 2, 5, 'M-3003', NULL, 15, NULL, NULL, NULL, NULL, NULL, '2', 'Admin', '-', NULL, '2022-02-02 23:51:07', NULL);
 
 -- --------------------------------------------------------
 
@@ -450,10 +520,19 @@ CREATE TABLE `sponsors` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `detail` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `filename` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deleted_at` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sponsors`
+--
+
+INSERT INTO `sponsors` (`id`, `name`, `detail`, `filename`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'Thai beverage', 'Thai beverage', 'thaibeverage.png', NULL, '2022-02-07 07:46:20', NULL),
+(2, 'Chang beer park', 'Chang beer park', 'changpark.png', NULL, '2022-02-07 07:46:20', NULL),
+(3, 'ฟาร์มโชคชัย', 'โชคชัยสเต็กเฮ้าส์สาขาปากช่องขึ้นที่บริเวณหน้าฟาร์มโชคชัยอ. ปากช่องจ. นครราชสีมา', 'farmchokchai.png', NULL, '2022-02-07 07:46:20', NULL);
 
 -- --------------------------------------------------------
 
@@ -475,7 +554,7 @@ CREATE TABLE `tournaments` (
   `abbreviation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ตัวย่อ',
   `location` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `imgname` text COLLATE utf8mb4_unicode_ci,
+  `imgname` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status_event` char(1) COLLATE utf8mb4_unicode_ci DEFAULT '0' COMMENT '0=ปิด, 1=เปิด ',
   `status_register` char(1) COLLATE utf8mb4_unicode_ci DEFAULT '0' COMMENT '0=ปิดสมัคร, 1=เปิดสมัคร ',
   `status_pomotion` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '0=ปิดใช้, 1=เปิดใช้ ',
@@ -494,8 +573,8 @@ CREATE TABLE `tournaments` (
 --
 
 INSERT INTO `tournaments` (`id`, `name_th`, `name_en`, `title_th`, `title_en`, `detail_th`, `detail_en`, `address_th`, `address_en`, `race_type`, `abbreviation`, `location`, `icon`, `imgname`, `status_event`, `status_register`, `status_pomotion`, `register_start`, `register_end`, `event_start`, `event_end`, `remark`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Farm Chokchai Tour de Farm 8', 'Farm Chokchai Tour de Farm 8', 'Farm Chokchai Tour de Farm 8 เป็นมากกว่างานจักรยานแห่งปี แต่เป็นงานจักรยานของสุภาพบุรุษนักปั่น Peloton of Gentleman', 'Farm Chokchai Tour de Farm 8 เป็นมากกว่างานจักรยานแห่งปี แต่เป็นงานจักรยานของสุภาพบุรุษนักปั่น Peloton of Gentleman', 'ฟาร์มโชคชัย เอ้าท์ดอร์ สปอร์ต ในนามของ กลุ่มบริษัทฟาร์มโชคชัย และบริษัท โชคชัยอินเตอร์เนชั่นแนล จำกัด ขอเชิญผู้ที่รักการปั่นทุกท่านเข้าร่วมในรายการจักรยานทางเรียบแห่งปี “Farm Chokchai Tour de Farm 8” ภายใต้ Concept “Transform Your Fear To Focus” เปลี่ยนความกลัวให้เป็นจุดมุ่งหมาย ในวันอาทิตย์ที่ 12 มกราคม 2563 ณ ฟาร์มโชคชัย 3 อำเภอปากช่อง จังหวัดนครราชสีมา', 'ฟาร์มโชคชัย เอ้าท์ดอร์ สปอร์ต ในนามของ กลุ่มบริษัทฟาร์มโชคชัย และบริษัท โชคชัยอินเตอร์เนชั่นแนล จำกัด ขอเชิญผู้ที่รักการปั่นทุกท่านเข้าร่วมในรายการจักรยานทางเรียบแห่งปี “Farm Chokchai Tour de Farm 8” ภายใต้ Concept “Transform Your Fear To Focus” เปลี่ยนความกลัวให้เป็นจุดมุ่งหมาย ในวันอาทิตย์ที่ 12 มกราคม 2563 ณ ฟาร์มโชคชัย 3 อำเภอปากช่อง จังหวัดนครราชสีมา', 'วันอาทิตย์ 12 มกราคม 2563 ฟาร์มโชคชัย 3 ถนนธนะรัชต์ กม.ที่ 12 หมูสี ปากช่อง จ.นครราชสีมา', 'วันอาทิตย์ 12 มกราคม 2563 ฟาร์มโชคชัย 3 ถนนธนะรัชต์ กม.ที่ 12 หมูสี ปากช่อง จ.นครราชสีมา', 2, 'TDF', 'url', 'sm.png', 'tdf.jpg', '1', '1', '1', '2021-12-14', '2021-12-15', '2021-12-30', '2021-12-31', 'เงื่อนไขการสมัคร :\n1. ผู้สมัคร ต้องสมัครเป็นสมาชิกเว็บไซต์ www.farmchokchaisport.com ก่อน โดยเมื่อกรอกข้อมูลครบถ้วน ระบบจะส่งอีเมล์ ให้ผู้สมัคร ยืนยันตัวตน (Activate) และเข้าระบบเพื่อสมัครรายการกีฬาต่อไป\n2. ระบบรับสมัครแบ่งออกเป็นแบบบุคคล และแบบกลุ่ม (สมัครให้เพื่อน)\n3. กรอกข้อมูลผ่านระบบลงทะเบียนออนไลน์  ผู้สมัครจะได้รับการตอบรับการสมัครรายการ หมายเลขอ้างอิงการสมัคร รูปแบบการชำระเงินให้กับท่านโดยอีเมล์\n4. หากเลือกรูปแบบการชำระเงินโดยการโอนเงินผ่านธนาคาร ให้ทำตามขั้นตอน และส่งหลักฐานยืนยันการชำระเงินทางเว็บไซต์\n5. เมื่อชำระค่าสมัครและแจ้งการชำระค่าสมัครแล้ว ท่านจะได้รับอีเมล์ตอบกลับยืนยันการชำระเงินของท่าน พร้อม QR Code\nหมายเหตุ : ผู้สมัครไม่สามารถเปลี่ยนตัวผู้เข้าร่วมแข่งขันได้', NULL, '2021-12-02 01:40:26', NULL),
-(2, 'Farm Chokchai Run de Farm', 'Farm Chokchai Run de Farm', 'หากไม่อยากพลาดอีกครั้ง กับงานวิ่งฤดูหนาว ตะลุยฟาร์มโชคชัย ทะลุไร่สุวรรณ Cow & Corn  farms cross country runs', 'หากไม่อยากพลาดอีกครั้ง กับงานวิ่งฤดูหนาว ตะลุยฟาร์มโชคชัย ทะลุไร่สุวรรณ Cow & Corn  farms cross country runs', 'ไม่ว่าจะสายพลัง สายชิล สายแชะ มาคนเดียว มาเป็นกลุ่ม หรือยกครอบครัว มาร่วมวิ่งอย่างสนุกสนาน ซึ่งในครั้งนี้มีการจับเวลา เพื่อหานักวิ่ง คิง ออฟ รัน เดอ ฟาร์ม “ King of Run de Farm” อันดับ 1 -3 ของกลุ่มอายุ และรางวัล Gentleman Awards สำหรับนักวิ่งทั้งชายและหญิง ที่มีน้ำใจเป็นนักกีฬา ช่วยเหลือ แบ่งปัน ฯ นอกจากนี้ ผู้เข้าร่วมงานทุกท่าน มีโอกาสได้รับรางวัล #คนรักษ์โลก เมื่อแสดงออกถึงความเป็นมิตรกับสิ่งแวดล้อม\r\n\r\nรัน เดอ ฟาร์ม นักวิ่งจะได้สัมผัสประสบการณ์ และทิวทัศน์ที่สวยงามท่ามกลางบรรยากาศของฟาร์มปศุสัตว์ของฟาร์มโชคชัย ชมวิว วัว ทุ่งหญ้า แปลงเพาะปลูกข้าวโพด เครื่องจักรการเกษตร พร้อมกันนั้นยังได้วิ่งเข้าไปสัมผัสกับไร่สุวรรณ ฟาร์มที่มีชื่อเสียงด้านข้าวโพดหวาน ได้ชมสถานที่สำคัญภายในเช่น พลับพลาที่ประทับของในหลวงรัชกาลที่ 9 แปลงเพาะปลูกข้าวโพด เครื่องจักรเกษตร เป็นต้น ท่ามกลางบรรยากาศความเย็นของฤดูหนาว  ณ ฟาร์มโชคชัย 1  และไร่สุวรรณ', 'ไม่ว่าจะสายพลัง สายชิล สายแชะ มาคนเดียว มาเป็นกลุ่ม หรือยกครอบครัว มาร่วมวิ่งอย่างสนุกสนาน ซึ่งในครั้งนี้มีการจับเวลา เพื่อหานักวิ่ง คิง ออฟ รัน เดอ ฟาร์ม “ King of Run de Farm” อันดับ 1 -3 ของกลุ่มอายุ และรางวัล Gentleman Awards สำหรับนักวิ่งทั้งชายและหญิง ที่มีน้ำใจเป็นนักกีฬา ช่วยเหลือ แบ่งปัน ฯ นอกจากนี้ ผู้เข้าร่วมงานทุกท่าน มีโอกาสได้รับรางวัล #คนรักษ์โลก เมื่อแสดงออกถึงความเป็นมิตรกับสิ่งแวดล้อม\r\n\r\nรัน เดอ ฟาร์ม นักวิ่งจะได้สัมผัสประสบการณ์ และทิวทัศน์ที่สวยงามท่ามกลางบรรยากาศของฟาร์มปศุสัตว์ของฟาร์มโชคชัย ชมวิว วัว ทุ่งหญ้า แปลงเพาะปลูกข้าวโพด เครื่องจักรการเกษตร พร้อมกันนั้นยังได้วิ่งเข้าไปสัมผัสกับไร่สุวรรณ ฟาร์มที่มีชื่อเสียงด้านข้าวโพดหวาน ได้ชมสถานที่สำคัญภายในเช่น พลับพลาที่ประทับของในหลวงรัชกาลที่ 9 แปลงเพาะปลูกข้าวโพด เครื่องจักรเกษตร เป็นต้น ท่ามกลางบรรยากาศความเย็นของฤดูหนาว  ณ ฟาร์มโชคชัย 1  และไร่สุวรรณ', 'วันอาทิตย์ 22 ธันวาคม 2562\r\nฟาร์มโชคชัย 1 ก.ม. 159 ถ.มิตรภาพ หนองน้ำแดง ปากช่อง จ.นครราชสีมา', 'วันอาทิตย์ 22 ธันวาคม 2562\r\nฟาร์มโชคชัย 1 ก.ม. 159 ถ.มิตรภาพ หนองน้ำแดง ปากช่อง จ.นครราชสีมา', 1, 'RDF', 'url', 'sm.png', 'rdf.jpg', '1', '1', '1', '2021-12-14', '2021-12-15', '2021-12-30', '2021-12-31', 'เงื่อนไขการสมัคร :\r\n1. ผู้สมัคร ต้องสมัครเป็นสมาชิกเว็บไซต์ www.farmchokchaisport.com ก่อน โดยเมื่อกรอกข้อมูลครบถ้วน ระบบจะส่งอีเมล์ ให้ผู้สมัคร ยืนยันตัวตน (Activate) และเข้าระบบเพื่อสมัครรายการกีฬาต่อไป\r\n2. ระบบรับสมัครแบ่งออกเป็นแบบบุคคล และแบบกลุ่ม (สมัครให้เพื่อน)\r\n3. กรอกข้อมูลผ่านระบบลงทะเบียนออนไลน์  ผู้สมัครจะได้รับการตอบรับการสมัครรายการ หมายเลขอ้างอิงการสมัคร รูปแบบการชำระเงินให้กับท่านโดยอีเมล์\r\n4. หากเลือกรูปแบบการชำระเงินโดยการโอนเงินผ่านธนาคาร ให้ทำตามขั้นตอน และส่งหลักฐานยืนยันการชำระเงินทางเว็บไซต์\r\n5. เมื่อชำระค่าสมัครและแจ้งการชำระค่าสมัครแล้ว ท่านจะได้รับอีเมล์ตอบกลับยืนยันการชำระเงินของท่าน พร้อม QR Code\r\nหมายเหตุ : ผู้สมัครไม่สามารถเปลี่ยนตัวผู้เข้าร่วมแข่งขันได้', NULL, '2021-12-02 01:40:26', NULL);
+(1, 'Farm Chokchai Tour de Farm 8', 'Farm Chokchai Tour de Farm 8', 'Farm Chokchai Tour de Farm 8 เป็นมากกว่างานจักรยานแห่งปี แต่เป็นงานจักรยานของสุภาพบุรุษนักปั่น Peloton of Gentleman', 'Farm Chokchai Tour de Farm 8 เป็นมากกว่างานจักรยานแห่งปี แต่เป็นงานจักรยานของสุภาพบุรุษนักปั่น Peloton of Gentleman', 'ฟาร์มโชคชัย เอ้าท์ดอร์ สปอร์ต ในนามของ กลุ่มบริษัทฟาร์มโชคชัย และบริษัท โชคชัยอินเตอร์เนชั่นแนล จำกัด ขอเชิญผู้ที่รักการปั่นทุกท่านเข้าร่วมในรายการจักรยานทางเรียบแห่งปี “Farm Chokchai Tour de Farm 8” ภายใต้ Concept “Transform Your Fear To Focus” เปลี่ยนความกลัวให้เป็นจุดมุ่งหมาย ในวันอาทิตย์ที่ 12 มกราคม 2563 ณ ฟาร์มโชคชัย 3 อำเภอปากช่อง จังหวัดนครราชสีมา', 'ฟาร์มโชคชัย เอ้าท์ดอร์ สปอร์ต ในนามของ กลุ่มบริษัทฟาร์มโชคชัย และบริษัท โชคชัยอินเตอร์เนชั่นแนล จำกัด ขอเชิญผู้ที่รักการปั่นทุกท่านเข้าร่วมในรายการจักรยานทางเรียบแห่งปี “Farm Chokchai Tour de Farm 8” ภายใต้ Concept “Transform Your Fear To Focus” เปลี่ยนความกลัวให้เป็นจุดมุ่งหมาย ในวันอาทิตย์ที่ 12 มกราคม 2563 ณ ฟาร์มโชคชัย 3 อำเภอปากช่อง จังหวัดนครราชสีมา', 'วันอาทิตย์ 12 มกราคม 2563 ฟาร์มโชคชัย 3 ถนนธนะรัชต์ กม.ที่ 12 หมูสี ปากช่อง จ.นครราชสีมา', 'วันอาทิตย์ 12 มกราคม 2563 ฟาร์มโชคชัย 3 ถนนธนะรัชต์ กม.ที่ 12 หมูสี ปากช่อง จ.นครราชสีมา', 2, 'TDF', 'url', 'tdf.jpg', 'tdf.jpg', '1', '1', '1', '2021-12-14', '2021-12-15', '2021-12-30', '2021-12-31', 'เงื่อนไขการสมัคร :\n1. ผู้สมัคร ต้องสมัครเป็นสมาชิกเว็บไซต์ www.farmchokchaisport.com ก่อน โดยเมื่อกรอกข้อมูลครบถ้วน ระบบจะส่งอีเมล์ ให้ผู้สมัคร ยืนยันตัวตน (Activate) และเข้าระบบเพื่อสมัครรายการกีฬาต่อไป\n2. ระบบรับสมัครแบ่งออกเป็นแบบบุคคล และแบบกลุ่ม (สมัครให้เพื่อน)\n3. กรอกข้อมูลผ่านระบบลงทะเบียนออนไลน์  ผู้สมัครจะได้รับการตอบรับการสมัครรายการ หมายเลขอ้างอิงการสมัคร รูปแบบการชำระเงินให้กับท่านโดยอีเมล์\n4. หากเลือกรูปแบบการชำระเงินโดยการโอนเงินผ่านธนาคาร ให้ทำตามขั้นตอน และส่งหลักฐานยืนยันการชำระเงินทางเว็บไซต์\n5. เมื่อชำระค่าสมัครและแจ้งการชำระค่าสมัครแล้ว ท่านจะได้รับอีเมล์ตอบกลับยืนยันการชำระเงินของท่าน พร้อม QR Code\nหมายเหตุ : ผู้สมัครไม่สามารถเปลี่ยนตัวผู้เข้าร่วมแข่งขันได้', NULL, '2021-12-02 01:40:26', NULL),
+(2, 'Farm Chokchai Run de Farm', 'Farm Chokchai Run de Farm', 'หากไม่อยากพลาดอีกครั้ง กับงานวิ่งฤดูหนาว ตะลุยฟาร์มโชคชัย ทะลุไร่สุวรรณ Cow & Corn  farms cross country runs', 'หากไม่อยากพลาดอีกครั้ง กับงานวิ่งฤดูหนาว ตะลุยฟาร์มโชคชัย ทะลุไร่สุวรรณ Cow & Corn  farms cross country runs', 'ไม่ว่าจะสายพลัง สายชิล สายแชะ มาคนเดียว มาเป็นกลุ่ม หรือยกครอบครัว มาร่วมวิ่งอย่างสนุกสนาน ซึ่งในครั้งนี้มีการจับเวลา เพื่อหานักวิ่ง คิง ออฟ รัน เดอ ฟาร์ม “ King of Run de Farm” อันดับ 1 -3 ของกลุ่มอายุ และรางวัล Gentleman Awards สำหรับนักวิ่งทั้งชายและหญิง ที่มีน้ำใจเป็นนักกีฬา ช่วยเหลือ แบ่งปัน ฯ นอกจากนี้ ผู้เข้าร่วมงานทุกท่าน มีโอกาสได้รับรางวัล #คนรักษ์โลก เมื่อแสดงออกถึงความเป็นมิตรกับสิ่งแวดล้อม\r\n\r\nรัน เดอ ฟาร์ม นักวิ่งจะได้สัมผัสประสบการณ์ และทิวทัศน์ที่สวยงามท่ามกลางบรรยากาศของฟาร์มปศุสัตว์ของฟาร์มโชคชัย ชมวิว วัว ทุ่งหญ้า แปลงเพาะปลูกข้าวโพด เครื่องจักรการเกษตร พร้อมกันนั้นยังได้วิ่งเข้าไปสัมผัสกับไร่สุวรรณ ฟาร์มที่มีชื่อเสียงด้านข้าวโพดหวาน ได้ชมสถานที่สำคัญภายในเช่น พลับพลาที่ประทับของในหลวงรัชกาลที่ 9 แปลงเพาะปลูกข้าวโพด เครื่องจักรเกษตร เป็นต้น ท่ามกลางบรรยากาศความเย็นของฤดูหนาว  ณ ฟาร์มโชคชัย 1  และไร่สุวรรณ', 'ไม่ว่าจะสายพลัง สายชิล สายแชะ มาคนเดียว มาเป็นกลุ่ม หรือยกครอบครัว มาร่วมวิ่งอย่างสนุกสนาน ซึ่งในครั้งนี้มีการจับเวลา เพื่อหานักวิ่ง คิง ออฟ รัน เดอ ฟาร์ม “ King of Run de Farm” อันดับ 1 -3 ของกลุ่มอายุ และรางวัล Gentleman Awards สำหรับนักวิ่งทั้งชายและหญิง ที่มีน้ำใจเป็นนักกีฬา ช่วยเหลือ แบ่งปัน ฯ นอกจากนี้ ผู้เข้าร่วมงานทุกท่าน มีโอกาสได้รับรางวัล #คนรักษ์โลก เมื่อแสดงออกถึงความเป็นมิตรกับสิ่งแวดล้อม\r\n\r\nรัน เดอ ฟาร์ม นักวิ่งจะได้สัมผัสประสบการณ์ และทิวทัศน์ที่สวยงามท่ามกลางบรรยากาศของฟาร์มปศุสัตว์ของฟาร์มโชคชัย ชมวิว วัว ทุ่งหญ้า แปลงเพาะปลูกข้าวโพด เครื่องจักรการเกษตร พร้อมกันนั้นยังได้วิ่งเข้าไปสัมผัสกับไร่สุวรรณ ฟาร์มที่มีชื่อเสียงด้านข้าวโพดหวาน ได้ชมสถานที่สำคัญภายในเช่น พลับพลาที่ประทับของในหลวงรัชกาลที่ 9 แปลงเพาะปลูกข้าวโพด เครื่องจักรเกษตร เป็นต้น ท่ามกลางบรรยากาศความเย็นของฤดูหนาว  ณ ฟาร์มโชคชัย 1  และไร่สุวรรณ', 'วันอาทิตย์ 22 ธันวาคม 2562\r\nฟาร์มโชคชัย 1 ก.ม. 159 ถ.มิตรภาพ หนองน้ำแดง ปากช่อง จ.นครราชสีมา', 'วันอาทิตย์ 22 ธันวาคม 2562\r\nฟาร์มโชคชัย 1 ก.ม. 159 ถ.มิตรภาพ หนองน้ำแดง ปากช่อง จ.นครราชสีมา', 1, 'RDF', 'url', 'sm.png', 'rdf.jpg', '1', '1', '1', '2021-12-14', '2021-12-15', '2021-12-30', '2021-12-31', 'เงื่อนไขการสมัคร :\n1. ผู้สมัคร ต้องสมัครเป็นสมาชิกเว็บไซต์ www.farmchokchaisport.com ก่อน โดยเมื่อกรอกข้อมูลครบถ้วน ระบบจะส่งอีเมล์ ให้ผู้สมัคร ยืนยันตัวตน (Activate) และเข้าระบบเพื่อสมัครรายการกีฬาต่อไป\n2. ระบบรับสมัครแบ่งออกเป็นแบบบุคคล และแบบกลุ่ม (สมัครให้เพื่อน)\n3. กรอกข้อมูลผ่านระบบลงทะเบียนออนไลน์  ผู้สมัครจะได้รับการตอบรับการสมัครรายการ หมายเลขอ้างอิงการสมัคร รูปแบบการชำระเงินให้กับท่านโดยอีเมล์\n4. หากเลือกรูปแบบการชำระเงินโดยการโอนเงินผ่านธนาคาร ให้ทำตามขั้นตอน และส่งหลักฐานยืนยันการชำระเงินทางเว็บไซต์\n5. เมื่อชำระค่าสมัครและแจ้งการชำระค่าสมัครแล้ว ท่านจะได้รับอีเมล์ตอบกลับยืนยันการชำระเงินของท่าน พร้อม QR Code\nหมายเหตุ : ผู้สมัครไม่สามารถเปลี่ยนตัวผู้เข้าร่วมแข่งขันได้', NULL, '2021-12-02 01:40:26', NULL);
 
 -- --------------------------------------------------------
 
@@ -561,7 +640,7 @@ CREATE TABLE `users` (
   `nationality` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `blood` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `disease` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci,
+  `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `district` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `amphoe` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `province` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -594,7 +673,10 @@ INSERT INTO `users` (`id`, `name`, `lname`, `email`, `email_verified_at`, `passw
 (7, 'พงศกร', 'สิงหเสรี', 'vorz7k1@gmail.com', NULL, NULL, NULL, '2022-01-17 00:50:41', '2022-01-17 00:43:40', 'M', NULL, NULL, '089-923-4668', 23, 8, 1982, '1', '3-1012-00157-76-5', 'ไทย', 'AB', NULL, '100/187', 'คูคต', 'ลำลูกกา', 'ปทุมธานี', 'ไทย', '12130', 'poommy', 'singhaseree', '089-999-9999', NULL, NULL, NULL, NULL, '1', '108137944294721288725', 'https://lh3.googleusercontent.com/a-/AOh14GgbXS3vDZoPPoULCgMf36UQfSOZ6E6lpiT-WGuBqw=s96-c', 1),
 (8, 'poommy', 'singhaseree', 'vorz7k2@gmail.com', NULL, NULL, NULL, '2022-01-17 00:52:08', NULL, 'F', NULL, NULL, '089-999-9999', 13, 11, 1975, '1', '8-9898-98989-89', 'ไทย', 'AB', NULL, '11111', 'คูคต', 'ลำลูกกา', 'ปทุมธานี', 'ไทย', '12130', 'เก่ง', 'เก่ง', '089-923-4668', NULL, NULL, NULL, NULL, '1', NULL, NULL, 1),
 (9, 'Saifah', 'Phaiwan', 'puttasa_fa@hotmail.com', NULL, NULL, NULL, '2022-01-17 19:46:02', '2022-01-17 19:43:37', 'M', NULL, NULL, '080-056-8953', 28, 10, 1996, '1', '1-1996-00196-24-6', 'ไทย', 'B', NULL, '81 หมู่ 6 ต.ช่องสาริกา อ.พัฒนานิคม จ.ลพบุรี', 'ช่องสาริกา', 'พัฒนานิคม', 'ลพบุรี', 'ไทย', '15220', '-', '-', '080-056-8953', NULL, NULL, NULL, NULL, '1', '4597129987041422', 'https://graph.facebook.com/v3.3/4597129987041422/picture?type=normal', 1),
-(10, 'Dev.', 'Phaiwan', 'saifah1928@gmail.com', NULL, '$2y$10$L0BiTGJfMDlfLHNP4fvVNeMCNEpET9jt1ri4rh4WOONZvhQEaOA0.', 'GBqDTv0V9EYQvFJxwemCExWFCmTu2KLxkFQW9lzFvifLP3TSafF5wKUUa4VO', '2022-01-19 23:22:44', '2022-01-19 23:27:54', 'M', NULL, NULL, '080-056-8953', 28, 10, 1996, '1', '1-1996-00196-24-6', 'ไทย', 'B', '-', '81/ m6', 'ช่องสาริกา', 'พัฒนานิคม', 'ลพบุรี', 'ไทย', '15220', '-', '-', '080-056-8953', NULL, NULL, NULL, NULL, '2', NULL, NULL, 1);
+(10, 'Dev.Phaiwan', '', 'farmchokchaisport2016@gmail.com', NULL, '$2y$10$L0BiTGJfMDlfLHNP4fvVNeMCNEpET9jt1ri4rh4WOONZvhQEaOA0.', 'TygbnW7OH7QK2vNlllRnW0IxkQlw4E7J3IooMPcURGvsLBKb8O27hPsAMG2m', '2022-01-19 23:22:44', '2022-01-19 23:27:54', 'M', NULL, NULL, '080-056-8953', 28, 10, 1996, '1', '1-1996-00196-24-6', 'ไทย', 'B', '-', '81/ m6', 'ช่องสาริกา', 'พัฒนานิคม', 'ลพบุรี', 'ไทย', '15220', '-', '-', '080-056-8953', NULL, NULL, NULL, NULL, '2', NULL, NULL, 1),
+(14, 'Saifah', 'phaiwan', 'saifah1928@gmail.com', NULL, NULL, NULL, '2022-02-02 23:37:18', NULL, 'M', NULL, NULL, '080-056-8953', 14, 10, 1934, '1', '1-1889-54645-46-5', 'ไทย', 'AB', NULL, '87/45', 'คลองหนึ่ง', 'คลองหลวง', 'ปทุมธานี', 'ไทย', '12120', '-', '-', '080-056-8953', NULL, NULL, NULL, NULL, '1', NULL, NULL, 1),
+(15, 'Phaiwan', '001', 'saifah19x28@gmail.com', NULL, NULL, NULL, '2022-02-02 23:51:06', NULL, 'M', NULL, NULL, '080-056-8953', 8, 9, 1937, '1', '1-9498-56566-55-4', 'ไทย', 'B', NULL, '89/99', 'คลองสามประเวศ', 'ลาดกระบัง', 'กรุงเทพมหานคร', 'ไทย', '10520', '-', '-', '080-056-8953', NULL, NULL, NULL, NULL, '1', NULL, NULL, 1),
+(20, 'Admin Drive Thru', NULL, 'dev.saifahA@gmail.com', NULL, '$2y$10$UbhXLhr49/jCB7LZ8ftFpOgNkaly69BXwxIb4p.Lp.ljcbYxHfL4S', NULL, '2022-02-03 20:08:38', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -669,6 +751,12 @@ ALTER TABLE `promotion_codes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `promotion_codes_sponsors`
+--
+ALTER TABLE `promotion_codes_sponsors`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `race_programs`
 --
 ALTER TABLE `race_programs`
@@ -712,13 +800,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bill_tems`
 --
 ALTER TABLE `bill_tems`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `cart_sport_tems`
 --
 ALTER TABLE `cart_sport_tems`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -766,13 +854,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `promotion_codes`
 --
 ALTER TABLE `promotion_codes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `promotion_codes_sponsors`
+--
+ALTER TABLE `promotion_codes_sponsors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `race_programs`
 --
 ALTER TABLE `race_programs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `souvenirs`
@@ -784,7 +878,7 @@ ALTER TABLE `souvenirs`
 -- AUTO_INCREMENT for table `sponsors`
 --
 ALTER TABLE `sponsors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tournament_types`
@@ -796,7 +890,7 @@ ALTER TABLE `tournament_types`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
