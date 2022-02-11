@@ -10,7 +10,8 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ReportmatchController;
 use App\Http\Controllers\PromotioncodeController;
-
+use App\Http\Controllers\MgeventController;
+ 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -123,7 +124,7 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::get('/applysuccess/{bill_id}/{users_id}', [ManageController::class, 'applysuccess'])->name('applysuccess');  
     Route::post('saveApplySportman', [ManageController::class, 'saveApplySportman'])->name('saveApplySportman.post');  
 
-    // =============== รายงานการแข่งขัน =============== //
+    // =============== สถิติรายงานการแข่งขัน =============== //
     Route::get('/statisticsRegis', [ReportmatchController::class, 'statisticsRegis'])->name('statisticsRegis'); 
     
     // =============== จัดการโปรโมรชั่น Code =============== //
@@ -131,12 +132,16 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::get('datatablePromocode', [PromotioncodeController::class, 'datatablePromocode'])->name('datatablePromocode.post'); 
     Route::post('ajaxPreviwePromocode', [PromotioncodeController::class, 'ajaxPreviwePromocode'])->name('ajaxPreviwePromocode.post');  
     Route::get('/promotioncreate', [PromotioncodeController::class, 'promotioncreate'])->name('promotioncreate'); 
-    Route::get('/promotionupdate/{id}', [PromotioncodeController::class, 'promotionupdate'])->name('promotionupdate');  
-     
+    Route::get('/promotionupdate/{id}', [PromotioncodeController::class, 'promotionupdate'])->name('promotionupdate');   
     Route::post('promotioncodesave', [PromotioncodeController::class, 'promotioncodesave'])->name('promotioncodesave.post'); 
     Route::post('promotioncodeupdate', [PromotioncodeController::class, 'promotioncodeupdate'])->name('promotioncodeupdate.post');   
     Route::post('promotioncodedelete', [PromotioncodeController::class, 'promotioncodedelete'])->name('promotioncodedelete.post');   
     Route::get('datatableSponsors', [PromotioncodeController::class, 'datatableSponsors'])->name('datatableSponsors.post');  
-    Route::get('generatePDF_promocode', [PromotioncodeController::class, 'generatePDF_promocode'])->name('generatePDF_promocode.post'); 
+    Route::get('generatePDF_promocode', [PromotioncodeController::class, 'generatePDF_promocode'])->name('generatePDF_promocode.post');
     
+    
+    // =============== จัดการงาน Event =============== //
+    Route::get('/event_list', [MgeventController::class, 'event_list'])->name('event_list');  
+    Route::get('datatableEventlist', [MgeventController::class, 'datatableEventlist'])->name('datatableEventlist.post'); 
+    Route::get('/event_viwe/{id}', [MgeventController::class, 'event_viwe'])->name('event_viwe');
 });
