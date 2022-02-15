@@ -144,4 +144,16 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::get('/event_list', [MgeventController::class, 'event_list'])->name('event_list');  
     Route::get('datatableEventlist', [MgeventController::class, 'datatableEventlist'])->name('datatableEventlist.post'); 
     Route::get('/event_viwe/{id}', [MgeventController::class, 'event_viwe'])->name('event_viwe');
+
+    Route::get('/eventcreate', [MgeventController::class, 'eventcreate'])->name('eventcreate');
+    Route::post('eventsave', [MgeventController::class, 'eventsave'])->name('eventsave.post');  
+    Route::get('/optioncreate/{id}', [MgeventController::class, 'optioncreate'])->name('optioncreate');
+    Route::get('datatableTournaments', [MgeventController::class, 'datatableTournaments'])->name('datatableTournaments.post'); 
+    Route::post('closeTournamentType', [MgeventController::class, 'closeTournamentType'])->name('closeTournamentType.post');  
+    Route::post('optionSave', [MgeventController::class, 'optionSave'])->name('optionSave.post');  
+    Route::get('datatableOption', [MgeventController::class, 'datatableOption'])->name('datatableOption.post'); 
+    Route::post('closeOptionType', [MgeventController::class, 'closeOptionType'])->name('closeOptionType.post');
+    Route::post('createTournamentsSponsors', [MgeventController::class, 'createTournamentsSponsors'])->name('createTournamentsSponsors.post');
+    Route::post('removeTournamentsSponsors', [MgeventController::class, 'removeTournamentsSponsors'])->name('removeTournamentsSponsors.post');  
+    
 });

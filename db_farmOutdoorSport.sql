@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2022 at 11:23 AM
+-- Generation Time: Feb 15, 2022 at 10:53 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.30
 
@@ -154,11 +154,11 @@ CREATE TABLE `generations` (
   `tournament_type_id` int(11) NOT NULL,
   `name_th` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name_en` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `detail_th` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `detail_en` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `detail_th` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `detail_en` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `age_min` int(11) NOT NULL,
   `age_max` int(11) NOT NULL,
-  `release_start` date NOT NULL,
+  `release_start` date DEFAULT NULL,
   `sex` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -199,7 +199,11 @@ INSERT INTO `generations` (`id`, `order_num`, `tournament_id`, `tournament_type_
 (33, 2, 2, 4, 'รุ่นหญิงอายุ 30-39 ปี', 'Ladies models aged 30-39 years', 'รุ่นหญิงอายุ 30-39 ปี', 'Ladies models aged 30-39 years', 30, 39, '2021-12-30', 'F', NULL, '2021-12-02 01:56:45', NULL),
 (34, 3, 2, 4, 'รุ่นหญิงอายุ 40-49 ปี', 'Ladies models aged 40-49 years', 'รุ่นหญิงอายุ 40-49 ปี', 'Ladies models aged 40-49 years', 40, 49, '2021-12-30', 'F', NULL, '2021-12-02 01:56:45', NULL),
 (35, 4, 2, 4, 'รุ่นหญิงอายุ 50-59 ปี', 'Ladies models aged 50-59 years', 'รุ่นหญิงอายุ 50-59 ปี', 'Ladies models aged 50-59 years', 50, 59, '2021-12-30', 'F', NULL, '2021-12-02 01:56:45', NULL),
-(36, 5, 2, 4, 'รุ่นหญิงอายุ 60 ขึ้นไป', 'Ladies aged 60 and over', 'รุ่นหญิงอายุ 60 ขึ้นไป', 'Ladies aged 60 and over', 60, 100, '2021-12-30', 'F', NULL, '2021-12-02 01:56:45', NULL);
+(36, 5, 2, 4, 'รุ่นหญิงอายุ 60 ขึ้นไป', 'Ladies aged 60 and over', 'รุ่นหญิงอายุ 60 ขึ้นไป', 'Ladies aged 60 and over', 60, 100, '2021-12-30', 'F', NULL, '2021-12-02 01:56:45', NULL),
+(37, 1, 5, 8, 'รุ่นชายอายุ 18-29 ปี', 'รุ่นชายอายุ 18-29 ปี', NULL, NULL, 18, 29, NULL, 'M', NULL, '2022-02-14 02:56:16', '2022-02-15 02:52:15'),
+(38, 2, 5, 8, 'รุ่นชายอายุ 30-39 ปี', 'รุ่นชายอายุ 30-39 ปี', NULL, NULL, 30, 39, NULL, 'M', NULL, '2022-02-14 02:56:16', '2022-02-15 02:52:15'),
+(39, 1, 5, 9, 'รุ่นชาย Open', 'รุ่นชาย Open', NULL, NULL, 0, 0, NULL, 'M', NULL, '2022-02-14 02:56:16', '2022-02-15 02:52:15'),
+(40, 2, 5, 9, 'รุ่นหญิง Open', 'รุ่นหญิง Open', NULL, NULL, 0, 0, NULL, 'F', NULL, '2022-02-14 02:56:16', '2022-02-15 02:52:15');
 
 -- --------------------------------------------------------
 
@@ -264,7 +268,7 @@ CREATE TABLE `options` (
   `deleted_at` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `icon` char(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `icon` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -278,7 +282,9 @@ INSERT INTO `options` (`id`, `sport_id`, `name`, `detail`, `filename`, `status`,
 (4, 1, 'เบอร์ BIB', 'เบอร์ BIB', 'M0.png', '2', NULL, '2021-12-02 02:33:49', NULL, ''),
 (5, 2, 'เลือกชุดการแข่งขัน', 'การสมัครเข้าร่วมการแข่งขัน ผู้สมัครจะได้รับเสื้อที่ระลึก 1 ตัว และหมายเลขการแข่งขัน พร้อมชิพจับเวลา', 'rdf.jpg', '1', NULL, '2021-12-02 02:33:49', NULL, ''),
 (6, 2, 'เหรียญรางวัล\r\n', 'เหรียญรางวัล', 'rdf-01.jpg', '2', NULL, '2021-12-02 02:33:49', NULL, ''),
-(7, 2, 'เบอร์ BIB', 'เบอร์ BIB', 'M0.png', '2', NULL, '2021-12-02 02:33:49', NULL, '');
+(7, 2, 'เบอร์ BIB', 'เบอร์ BIB', 'M0.png', '2', NULL, '2021-12-02 02:33:49', NULL, ''),
+(8, 5, 'เสื้อแข่งขัน', 'เสื้อแข่งขัน RDFF', '1724818207658277.jpg', '1', NULL, '2022-02-15 01:47:05', NULL, NULL),
+(9, 5, 'สเต็คหมู', 'สเต็คหมู', '1724818691439870.jpg', '2', NULL, '2022-02-15 01:54:46', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -314,7 +320,10 @@ INSERT INTO `option_items` (`id`, `option_id`, `topic`, `detail`, `deleted_at`, 
 (11, 5, 'size M', 'chest (inches) 38', NULL, '2021-12-02 02:41:03', NULL),
 (12, 5, 'size L', 'chest (inches) 40', NULL, '2021-12-02 02:41:03', NULL),
 (13, 5, 'size XL', 'chest (inches) 42', NULL, '2021-12-02 02:41:03', NULL),
-(14, 5, 'size 2XL', 'chest (inches) 44', NULL, '2021-12-02 02:41:03', NULL);
+(14, 5, 'size 2XL', 'chest (inches) 44', NULL, '2021-12-02 02:41:03', NULL),
+(15, 8, 'xs 40\'\'', 'xs 40\'\'', NULL, '2022-02-15 01:47:05', NULL),
+(16, 8, 'xxl 45\'\'', 'xxl 45\'\'', NULL, '2022-02-15 01:47:05', NULL),
+(17, 9, 'สเต็คหมู', 'สเต็คหมู', NULL, '2022-02-15 01:54:46', NULL);
 
 -- --------------------------------------------------------
 
@@ -541,7 +550,7 @@ INSERT INTO `sponsors` (`id`, `name`, `detail`, `filename`, `deleted_at`, `creat
 --
 
 CREATE TABLE `tournaments` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name_th` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name_en` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `title_th` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -562,6 +571,8 @@ CREATE TABLE `tournaments` (
   `register_end` date NOT NULL,
   `event_start` date NOT NULL,
   `event_end` date NOT NULL,
+  `promotion_start` date DEFAULT NULL,
+  `promotion_end` date DEFAULT NULL,
   `remark` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `deleted_at` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -572,9 +583,33 @@ CREATE TABLE `tournaments` (
 -- Dumping data for table `tournaments`
 --
 
-INSERT INTO `tournaments` (`id`, `name_th`, `name_en`, `title_th`, `title_en`, `detail_th`, `detail_en`, `address_th`, `address_en`, `race_type`, `abbreviation`, `location`, `icon`, `imgname`, `status_event`, `status_register`, `status_pomotion`, `register_start`, `register_end`, `event_start`, `event_end`, `remark`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Farm Chokchai Tour de Farm 8', 'Farm Chokchai Tour de Farm 8', 'Farm Chokchai Tour de Farm 8 เป็นมากกว่างานจักรยานแห่งปี แต่เป็นงานจักรยานของสุภาพบุรุษนักปั่น Peloton of Gentleman', 'Farm Chokchai Tour de Farm 8 เป็นมากกว่างานจักรยานแห่งปี แต่เป็นงานจักรยานของสุภาพบุรุษนักปั่น Peloton of Gentleman', 'ฟาร์มโชคชัย เอ้าท์ดอร์ สปอร์ต ในนามของ กลุ่มบริษัทฟาร์มโชคชัย และบริษัท โชคชัยอินเตอร์เนชั่นแนล จำกัด ขอเชิญผู้ที่รักการปั่นทุกท่านเข้าร่วมในรายการจักรยานทางเรียบแห่งปี “Farm Chokchai Tour de Farm 8” ภายใต้ Concept “Transform Your Fear To Focus” เปลี่ยนความกลัวให้เป็นจุดมุ่งหมาย ในวันอาทิตย์ที่ 12 มกราคม 2563 ณ ฟาร์มโชคชัย 3 อำเภอปากช่อง จังหวัดนครราชสีมา', 'ฟาร์มโชคชัย เอ้าท์ดอร์ สปอร์ต ในนามของ กลุ่มบริษัทฟาร์มโชคชัย และบริษัท โชคชัยอินเตอร์เนชั่นแนล จำกัด ขอเชิญผู้ที่รักการปั่นทุกท่านเข้าร่วมในรายการจักรยานทางเรียบแห่งปี “Farm Chokchai Tour de Farm 8” ภายใต้ Concept “Transform Your Fear To Focus” เปลี่ยนความกลัวให้เป็นจุดมุ่งหมาย ในวันอาทิตย์ที่ 12 มกราคม 2563 ณ ฟาร์มโชคชัย 3 อำเภอปากช่อง จังหวัดนครราชสีมา', 'วันอาทิตย์ 12 มกราคม 2563 ฟาร์มโชคชัย 3 ถนนธนะรัชต์ กม.ที่ 12 หมูสี ปากช่อง จ.นครราชสีมา', 'วันอาทิตย์ 12 มกราคม 2563 ฟาร์มโชคชัย 3 ถนนธนะรัชต์ กม.ที่ 12 หมูสี ปากช่อง จ.นครราชสีมา', 2, 'TDF', 'url', 'tdf.jpg', 'tdf.jpg', '1', '1', '1', '2021-12-14', '2021-12-15', '2021-12-30', '2021-12-31', 'เงื่อนไขการสมัคร :\n1. ผู้สมัคร ต้องสมัครเป็นสมาชิกเว็บไซต์ www.farmchokchaisport.com ก่อน โดยเมื่อกรอกข้อมูลครบถ้วน ระบบจะส่งอีเมล์ ให้ผู้สมัคร ยืนยันตัวตน (Activate) และเข้าระบบเพื่อสมัครรายการกีฬาต่อไป\n2. ระบบรับสมัครแบ่งออกเป็นแบบบุคคล และแบบกลุ่ม (สมัครให้เพื่อน)\n3. กรอกข้อมูลผ่านระบบลงทะเบียนออนไลน์  ผู้สมัครจะได้รับการตอบรับการสมัครรายการ หมายเลขอ้างอิงการสมัคร รูปแบบการชำระเงินให้กับท่านโดยอีเมล์\n4. หากเลือกรูปแบบการชำระเงินโดยการโอนเงินผ่านธนาคาร ให้ทำตามขั้นตอน และส่งหลักฐานยืนยันการชำระเงินทางเว็บไซต์\n5. เมื่อชำระค่าสมัครและแจ้งการชำระค่าสมัครแล้ว ท่านจะได้รับอีเมล์ตอบกลับยืนยันการชำระเงินของท่าน พร้อม QR Code\nหมายเหตุ : ผู้สมัครไม่สามารถเปลี่ยนตัวผู้เข้าร่วมแข่งขันได้', NULL, '2021-12-02 01:40:26', NULL),
-(2, 'Farm Chokchai Run de Farm', 'Farm Chokchai Run de Farm', 'หากไม่อยากพลาดอีกครั้ง กับงานวิ่งฤดูหนาว ตะลุยฟาร์มโชคชัย ทะลุไร่สุวรรณ Cow & Corn  farms cross country runs', 'หากไม่อยากพลาดอีกครั้ง กับงานวิ่งฤดูหนาว ตะลุยฟาร์มโชคชัย ทะลุไร่สุวรรณ Cow & Corn  farms cross country runs', 'ไม่ว่าจะสายพลัง สายชิล สายแชะ มาคนเดียว มาเป็นกลุ่ม หรือยกครอบครัว มาร่วมวิ่งอย่างสนุกสนาน ซึ่งในครั้งนี้มีการจับเวลา เพื่อหานักวิ่ง คิง ออฟ รัน เดอ ฟาร์ม “ King of Run de Farm” อันดับ 1 -3 ของกลุ่มอายุ และรางวัล Gentleman Awards สำหรับนักวิ่งทั้งชายและหญิง ที่มีน้ำใจเป็นนักกีฬา ช่วยเหลือ แบ่งปัน ฯ นอกจากนี้ ผู้เข้าร่วมงานทุกท่าน มีโอกาสได้รับรางวัล #คนรักษ์โลก เมื่อแสดงออกถึงความเป็นมิตรกับสิ่งแวดล้อม\r\n\r\nรัน เดอ ฟาร์ม นักวิ่งจะได้สัมผัสประสบการณ์ และทิวทัศน์ที่สวยงามท่ามกลางบรรยากาศของฟาร์มปศุสัตว์ของฟาร์มโชคชัย ชมวิว วัว ทุ่งหญ้า แปลงเพาะปลูกข้าวโพด เครื่องจักรการเกษตร พร้อมกันนั้นยังได้วิ่งเข้าไปสัมผัสกับไร่สุวรรณ ฟาร์มที่มีชื่อเสียงด้านข้าวโพดหวาน ได้ชมสถานที่สำคัญภายในเช่น พลับพลาที่ประทับของในหลวงรัชกาลที่ 9 แปลงเพาะปลูกข้าวโพด เครื่องจักรเกษตร เป็นต้น ท่ามกลางบรรยากาศความเย็นของฤดูหนาว  ณ ฟาร์มโชคชัย 1  และไร่สุวรรณ', 'ไม่ว่าจะสายพลัง สายชิล สายแชะ มาคนเดียว มาเป็นกลุ่ม หรือยกครอบครัว มาร่วมวิ่งอย่างสนุกสนาน ซึ่งในครั้งนี้มีการจับเวลา เพื่อหานักวิ่ง คิง ออฟ รัน เดอ ฟาร์ม “ King of Run de Farm” อันดับ 1 -3 ของกลุ่มอายุ และรางวัล Gentleman Awards สำหรับนักวิ่งทั้งชายและหญิง ที่มีน้ำใจเป็นนักกีฬา ช่วยเหลือ แบ่งปัน ฯ นอกจากนี้ ผู้เข้าร่วมงานทุกท่าน มีโอกาสได้รับรางวัล #คนรักษ์โลก เมื่อแสดงออกถึงความเป็นมิตรกับสิ่งแวดล้อม\r\n\r\nรัน เดอ ฟาร์ม นักวิ่งจะได้สัมผัสประสบการณ์ และทิวทัศน์ที่สวยงามท่ามกลางบรรยากาศของฟาร์มปศุสัตว์ของฟาร์มโชคชัย ชมวิว วัว ทุ่งหญ้า แปลงเพาะปลูกข้าวโพด เครื่องจักรการเกษตร พร้อมกันนั้นยังได้วิ่งเข้าไปสัมผัสกับไร่สุวรรณ ฟาร์มที่มีชื่อเสียงด้านข้าวโพดหวาน ได้ชมสถานที่สำคัญภายในเช่น พลับพลาที่ประทับของในหลวงรัชกาลที่ 9 แปลงเพาะปลูกข้าวโพด เครื่องจักรเกษตร เป็นต้น ท่ามกลางบรรยากาศความเย็นของฤดูหนาว  ณ ฟาร์มโชคชัย 1  และไร่สุวรรณ', 'วันอาทิตย์ 22 ธันวาคม 2562\r\nฟาร์มโชคชัย 1 ก.ม. 159 ถ.มิตรภาพ หนองน้ำแดง ปากช่อง จ.นครราชสีมา', 'วันอาทิตย์ 22 ธันวาคม 2562\r\nฟาร์มโชคชัย 1 ก.ม. 159 ถ.มิตรภาพ หนองน้ำแดง ปากช่อง จ.นครราชสีมา', 1, 'RDF', 'url', 'sm.png', 'rdf.jpg', '1', '1', '1', '2021-12-14', '2021-12-15', '2021-12-30', '2021-12-31', 'เงื่อนไขการสมัคร :\n1. ผู้สมัคร ต้องสมัครเป็นสมาชิกเว็บไซต์ www.farmchokchaisport.com ก่อน โดยเมื่อกรอกข้อมูลครบถ้วน ระบบจะส่งอีเมล์ ให้ผู้สมัคร ยืนยันตัวตน (Activate) และเข้าระบบเพื่อสมัครรายการกีฬาต่อไป\n2. ระบบรับสมัครแบ่งออกเป็นแบบบุคคล และแบบกลุ่ม (สมัครให้เพื่อน)\n3. กรอกข้อมูลผ่านระบบลงทะเบียนออนไลน์  ผู้สมัครจะได้รับการตอบรับการสมัครรายการ หมายเลขอ้างอิงการสมัคร รูปแบบการชำระเงินให้กับท่านโดยอีเมล์\n4. หากเลือกรูปแบบการชำระเงินโดยการโอนเงินผ่านธนาคาร ให้ทำตามขั้นตอน และส่งหลักฐานยืนยันการชำระเงินทางเว็บไซต์\n5. เมื่อชำระค่าสมัครและแจ้งการชำระค่าสมัครแล้ว ท่านจะได้รับอีเมล์ตอบกลับยืนยันการชำระเงินของท่าน พร้อม QR Code\nหมายเหตุ : ผู้สมัครไม่สามารถเปลี่ยนตัวผู้เข้าร่วมแข่งขันได้', NULL, '2021-12-02 01:40:26', NULL);
+INSERT INTO `tournaments` (`id`, `name_th`, `name_en`, `title_th`, `title_en`, `detail_th`, `detail_en`, `address_th`, `address_en`, `race_type`, `abbreviation`, `location`, `icon`, `imgname`, `status_event`, `status_register`, `status_pomotion`, `register_start`, `register_end`, `event_start`, `event_end`, `promotion_start`, `promotion_end`, `remark`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'Farm Chokchai Tour de Farm 8', 'Farm Chokchai Tour de Farm 8', 'Farm Chokchai Tour de Farm 8 เป็นมากกว่างานจักรยานแห่งปี แต่เป็นงานจักรยานของสุภาพบุรุษนักปั่น Peloton of Gentleman', 'Farm Chokchai Tour de Farm 8 เป็นมากกว่างานจักรยานแห่งปี แต่เป็นงานจักรยานของสุภาพบุรุษนักปั่น Peloton of Gentleman', 'ฟาร์มโชคชัย เอ้าท์ดอร์ สปอร์ต ในนามของ กลุ่มบริษัทฟาร์มโชคชัย และบริษัท โชคชัยอินเตอร์เนชั่นแนล จำกัด ขอเชิญผู้ที่รักการปั่นทุกท่านเข้าร่วมในรายการจักรยานทางเรียบแห่งปี “Farm Chokchai Tour de Farm 8” ภายใต้ Concept “Transform Your Fear To Focus” เปลี่ยนความกลัวให้เป็นจุดมุ่งหมาย ในวันอาทิตย์ที่ 12 มกราคม 2563 ณ ฟาร์มโชคชัย 3 อำเภอปากช่อง จังหวัดนครราชสีมา', 'ฟาร์มโชคชัย เอ้าท์ดอร์ สปอร์ต ในนามของ กลุ่มบริษัทฟาร์มโชคชัย และบริษัท โชคชัยอินเตอร์เนชั่นแนล จำกัด ขอเชิญผู้ที่รักการปั่นทุกท่านเข้าร่วมในรายการจักรยานทางเรียบแห่งปี “Farm Chokchai Tour de Farm 8” ภายใต้ Concept “Transform Your Fear To Focus” เปลี่ยนความกลัวให้เป็นจุดมุ่งหมาย ในวันอาทิตย์ที่ 12 มกราคม 2563 ณ ฟาร์มโชคชัย 3 อำเภอปากช่อง จังหวัดนครราชสีมา', 'วันอาทิตย์ 12 มกราคม 2563 ฟาร์มโชคชัย 3 ถนนธนะรัชต์ กม.ที่ 12 หมูสี ปากช่อง จ.นครราชสีมา', 'วันอาทิตย์ 12 มกราคม 2563 ฟาร์มโชคชัย 3 ถนนธนะรัชต์ กม.ที่ 12 หมูสี ปากช่อง จ.นครราชสีมา', 2, 'TDF', 'url', 'tdf.jpg', 'tdf.jpg', '1', '1', '1', '2021-12-14', '2021-12-15', '2021-12-30', '2021-12-31', NULL, NULL, 'เงื่อนไขการสมัคร :\n1. ผู้สมัคร ต้องสมัครเป็นสมาชิกเว็บไซต์ www.farmchokchaisport.com ก่อน โดยเมื่อกรอกข้อมูลครบถ้วน ระบบจะส่งอีเมล์ ให้ผู้สมัคร ยืนยันตัวตน (Activate) และเข้าระบบเพื่อสมัครรายการกีฬาต่อไป\n2. ระบบรับสมัครแบ่งออกเป็นแบบบุคคล และแบบกลุ่ม (สมัครให้เพื่อน)\n3. กรอกข้อมูลผ่านระบบลงทะเบียนออนไลน์  ผู้สมัครจะได้รับการตอบรับการสมัครรายการ หมายเลขอ้างอิงการสมัคร รูปแบบการชำระเงินให้กับท่านโดยอีเมล์\n4. หากเลือกรูปแบบการชำระเงินโดยการโอนเงินผ่านธนาคาร ให้ทำตามขั้นตอน และส่งหลักฐานยืนยันการชำระเงินทางเว็บไซต์\n5. เมื่อชำระค่าสมัครและแจ้งการชำระค่าสมัครแล้ว ท่านจะได้รับอีเมล์ตอบกลับยืนยันการชำระเงินของท่าน พร้อม QR Code\nหมายเหตุ : ผู้สมัครไม่สามารถเปลี่ยนตัวผู้เข้าร่วมแข่งขันได้', NULL, '2021-12-02 01:40:26', NULL),
+(2, 'Farm Chokchai Run de Farm', 'Farm Chokchai Run de Farm', 'หากไม่อยากพลาดอีกครั้ง กับงานวิ่งฤดูหนาว ตะลุยฟาร์มโชคชัย ทะลุไร่สุวรรณ Cow & Corn  farms cross country runs', 'หากไม่อยากพลาดอีกครั้ง กับงานวิ่งฤดูหนาว ตะลุยฟาร์มโชคชัย ทะลุไร่สุวรรณ Cow & Corn  farms cross country runs', 'ไม่ว่าจะสายพลัง สายชิล สายแชะ มาคนเดียว มาเป็นกลุ่ม หรือยกครอบครัว มาร่วมวิ่งอย่างสนุกสนาน ซึ่งในครั้งนี้มีการจับเวลา เพื่อหานักวิ่ง คิง ออฟ รัน เดอ ฟาร์ม “ King of Run de Farm” อันดับ 1 -3 ของกลุ่มอายุ และรางวัล Gentleman Awards สำหรับนักวิ่งทั้งชายและหญิง ที่มีน้ำใจเป็นนักกีฬา ช่วยเหลือ แบ่งปัน ฯ นอกจากนี้ ผู้เข้าร่วมงานทุกท่าน มีโอกาสได้รับรางวัล #คนรักษ์โลก เมื่อแสดงออกถึงความเป็นมิตรกับสิ่งแวดล้อม\r\n\r\nรัน เดอ ฟาร์ม นักวิ่งจะได้สัมผัสประสบการณ์ และทิวทัศน์ที่สวยงามท่ามกลางบรรยากาศของฟาร์มปศุสัตว์ของฟาร์มโชคชัย ชมวิว วัว ทุ่งหญ้า แปลงเพาะปลูกข้าวโพด เครื่องจักรการเกษตร พร้อมกันนั้นยังได้วิ่งเข้าไปสัมผัสกับไร่สุวรรณ ฟาร์มที่มีชื่อเสียงด้านข้าวโพดหวาน ได้ชมสถานที่สำคัญภายในเช่น พลับพลาที่ประทับของในหลวงรัชกาลที่ 9 แปลงเพาะปลูกข้าวโพด เครื่องจักรเกษตร เป็นต้น ท่ามกลางบรรยากาศความเย็นของฤดูหนาว  ณ ฟาร์มโชคชัย 1  และไร่สุวรรณ', 'ไม่ว่าจะสายพลัง สายชิล สายแชะ มาคนเดียว มาเป็นกลุ่ม หรือยกครอบครัว มาร่วมวิ่งอย่างสนุกสนาน ซึ่งในครั้งนี้มีการจับเวลา เพื่อหานักวิ่ง คิง ออฟ รัน เดอ ฟาร์ม “ King of Run de Farm” อันดับ 1 -3 ของกลุ่มอายุ และรางวัล Gentleman Awards สำหรับนักวิ่งทั้งชายและหญิง ที่มีน้ำใจเป็นนักกีฬา ช่วยเหลือ แบ่งปัน ฯ นอกจากนี้ ผู้เข้าร่วมงานทุกท่าน มีโอกาสได้รับรางวัล #คนรักษ์โลก เมื่อแสดงออกถึงความเป็นมิตรกับสิ่งแวดล้อม\r\n\r\nรัน เดอ ฟาร์ม นักวิ่งจะได้สัมผัสประสบการณ์ และทิวทัศน์ที่สวยงามท่ามกลางบรรยากาศของฟาร์มปศุสัตว์ของฟาร์มโชคชัย ชมวิว วัว ทุ่งหญ้า แปลงเพาะปลูกข้าวโพด เครื่องจักรการเกษตร พร้อมกันนั้นยังได้วิ่งเข้าไปสัมผัสกับไร่สุวรรณ ฟาร์มที่มีชื่อเสียงด้านข้าวโพดหวาน ได้ชมสถานที่สำคัญภายในเช่น พลับพลาที่ประทับของในหลวงรัชกาลที่ 9 แปลงเพาะปลูกข้าวโพด เครื่องจักรเกษตร เป็นต้น ท่ามกลางบรรยากาศความเย็นของฤดูหนาว  ณ ฟาร์มโชคชัย 1  และไร่สุวรรณ', 'วันอาทิตย์ 22 ธันวาคม 2562\r\nฟาร์มโชคชัย 1 ก.ม. 159 ถ.มิตรภาพ หนองน้ำแดง ปากช่อง จ.นครราชสีมา', 'วันอาทิตย์ 22 ธันวาคม 2562\nฟาร์มโชคชัย 1 ก.ม. 159 ถ.มิตรภาพ หนองน้ำแดง ปากช่อง จ.นครราชสีมา', 1, 'RDF', 'url', 'sm.png', 'rdf.jpg', '1', '1', '1', '2021-12-14', '2021-12-15', '2021-12-30', '2021-12-31', NULL, NULL, 'เงื่อนไขการสมัคร :\n1. ผู้สมัคร ต้องสมัครเป็นสมาชิกเว็บไซต์ www.farmchokchaisport.com ก่อน โดยเมื่อกรอกข้อมูลครบถ้วน ระบบจะส่งอีเมล์ ให้ผู้สมัคร ยืนยันตัวตน (Activate) และเข้าระบบเพื่อสมัครรายการกีฬาต่อไป\n2. ระบบรับสมัครแบ่งออกเป็นแบบบุคคล และแบบกลุ่ม (สมัครให้เพื่อน)\n3. กรอกข้อมูลผ่านระบบลงทะเบียนออนไลน์  ผู้สมัครจะได้รับการตอบรับการสมัครรายการ หมายเลขอ้างอิงการสมัคร รูปแบบการชำระเงินให้กับท่านโดยอีเมล์\n4. หากเลือกรูปแบบการชำระเงินโดยการโอนเงินผ่านธนาคาร ให้ทำตามขั้นตอน และส่งหลักฐานยืนยันการชำระเงินทางเว็บไซต์\n5. เมื่อชำระค่าสมัครและแจ้งการชำระค่าสมัครแล้ว ท่านจะได้รับอีเมล์ตอบกลับยืนยันการชำระเงินของท่าน พร้อม QR Code\nหมายเหตุ : ผู้สมัครไม่สามารถเปลี่ยนตัวผู้เข้าร่วมแข่งขันได้', NULL, '2021-12-02 01:40:26', NULL),
+(5, 'Farm Chokchai วิ่งๆ 1', 'Farm Chokchai วิ่งๆ 2', 'Farm Chokchai วิ่งๆ 3', 'Farm Chokchai วิ่งๆ 4', 'Farm Chokchai วิ่งๆ 5', 'Farm Chokchai วิ่งๆ 6', 'Farm Chokchai วิ่งๆ 7', 'Farm Chokchai วิ่งๆ 8', 1, 'RFF', 'Farm Chokchai วิ่งๆ 9', '1724811374387662.jpg', '1724811468192514.jpg', '0', '0', '0', '2022-03-01', '2022-03-10', '2022-03-01', '2022-03-10', '2022-03-01', '2022-03-10', '<p>เงื่อนไขการสมัคร :</p><p>1. ผู้สมัคร ต้องสมัครเป็นสมาชิกเว็บไซต์ www.farmchokchaisport.com ก่อน โดยเมื่อกรอกข้อมูลครบถ้วน ระบบจะส่งอีเมล์ ให้ผู้สมัคร ยืนยันตัวตน (Activate) และเข้าระบบเพื่อสมัครรายการกีฬาต่อไป</p><p>2. ระบบรับสมัครแบ่งออกเป็นแบบบุคคล และแบบกลุ่ม (สมัครให้เพื่อน)</p><p>3. กรอกข้อมูลผ่านระบบลงทะเบียนออนไลน์&nbsp; ผู้สมัครจะได้รับการตอบรับการสมัครรายการ หมายเลขอ้างอิงการสมัคร รูปแบบการชำระเงินให้กับท่านโดยอีเมล์</p><p>4. หากเลือกรูปแบบการชำระเงินโดยการโอนเงินผ่านธนาคาร ให้ทำตามขั้นตอน และส่งหลักฐานยืนยันการชำระเงินทางเว็บไซต์</p><p>5. เมื่อชำระค่าสมัครและแจ้งการชำระค่าสมัครแล้ว ท่านจะได้รับอีเมล์ตอบกลับยืนยันการชำระเงินของท่าน พร้อม QR Code</p><p>หมายเหตุ : ผู้สมัครไม่สามารถเปลี่ยนตัวผู้เข้าร่วมแข่งขันได้</p>', NULL, '2022-02-14 02:56:16', '2022-02-15 02:52:15');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tournaments_sponsors`
+--
+
+CREATE TABLE `tournaments_sponsors` (
+  `id` int(11) NOT NULL,
+  `tournament_id` int(11) NOT NULL,
+  `sponsors_id` int(11) NOT NULL,
+  `deleted_at` char(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tournaments_sponsors`
+--
+
+INSERT INTO `tournaments_sponsors` (`id`, `tournament_id`, `sponsors_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(7, 5, 1, '0', '2022-02-15 02:50:37', NULL),
+(8, 5, 3, '0', '2022-02-15 02:51:31', NULL);
 
 -- --------------------------------------------------------
 
@@ -593,7 +628,7 @@ CREATE TABLE `tournament_types` (
   `price` double(8,2) NOT NULL,
   `distance` int(11) NOT NULL,
   `unit` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `release_start` date NOT NULL,
+  `release_start` time NOT NULL,
   `type` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `function` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'T=จับเวลา / O = รุ่นทั่วไป Open',
   `deleted_at` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -606,11 +641,13 @@ CREATE TABLE `tournament_types` (
 --
 
 INSERT INTO `tournament_types` (`id`, `order_num`, `tournament_id`, `name_th`, `name_en`, `detail_th`, `detail_en`, `price`, `distance`, `unit`, `release_start`, `type`, `function`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '‘Fearless Gentlemen’ ระยะทาง 93  กม.', 'Fearless Gentlemen 93 กม.', 'เส้นทาง 93 กม. ของ ทัวร์ เดอ ฟาร์ม 8 ครั้งนี้ แตกต่างจากเส้นทาง ทัวร์ เดอ ฟาร์ม 7 100 กม โดยตัดเข้าถนนผ่านโรงเรียนลำทองหลาง ซึ่งเส้นทางนี้จะมีทางลงเขาที่ชันมาก ทำให้เป็นการปั่นลงเขาด้วยความเร็วสูง นักปั่นทุกท่านควรใช้ความระมัดระวัง ', 'This 93 km route of Tour de Farm 8 is different from the Tour de Farm 7 route 100 km by cycling through the road to Lam Thong Lang School.This path has a very steep downhill path resulting in a high-speed downhill ride. All cyclists should notice as a precaution.', 900.00, 93, 'K', '2021-12-30', '2', 'T', NULL, '2021-12-02 01:51:01', NULL),
-(2, 2, 1, '‘Going Greener’ ระยะทาง 68  กม.', '‘Going Greener’ 68 km.', 'เส้นทาง 93 กม. ของ ทัวร์ เดอ ฟาร์ม 8 ครั้งนี้ แตกต่างจากเส้นทาง ทัวร์ เดอ ฟาร์ม 7 100 กม โดยตัดเข้าถนนผ่านโรงเรียนลำทองหลาง ซึ่งเส้นทางนี้จะมีทางลงเขาที่ชันมาก ทำให้เป็นการปั่นลงเขาด้วยความเร็วสูง นักปั่นทุกท่านควรใช้ความระมัดระวัง ', 'This 93 km route of Tour de Farm 8 is different from the Tour de Farm 7 route 100 km by cycling through the road to Lam Thong Lang School.This path has a very steep downhill path resulting in a high-speed downhill ride. All cyclists should notice as a precaution.', 900.00, 68, 'K', '2021-12-30', '2', 'O', NULL, '2021-12-02 01:51:01', NULL),
-(3, 1, 2, 'ระยะทาง 15 กิโลเมตร', 'ระยะทาง 15 กิโลเมตร', '15 km เป็นระยะเต็ม ที่นักวิ่งจะได้สัมผัสกับทุกอย่างของวิถีการเกษตรแบบฟาร์มของฟาร์มโชคชัยและไร่สุวรรณ เหมาะสมกับนักวิ่งที่ความสามารถเคยวิ่งและซ้อมระยะนี้มาก่อน หรือแม้กระทั่งเคยผ่านการวิ่งระยะ Mini Marathon แต่ยังไม่ข้ามไป Half Marathon ก็สามารถท้าทายตัวเองด้วยระยะนี้ได้เหมือนกัน เพื่อจะได้สนุกกับเส้นทางอย่างเต็มที่', '15 km เป็นระยะเต็ม ที่นักวิ่งจะได้สัมผัสกับทุกอย่างของวิถีการเกษตรแบบฟาร์มของฟาร์มโชคชัยและไร่สุวรรณ เหมาะสมกับนักวิ่งที่ความสามารถเคยวิ่งและซ้อมระยะนี้มาก่อน หรือแม้กระทั่งเคยผ่านการวิ่งระยะ Mini Marathon แต่ยังไม่ข้ามไป Half Marathon ก็สามารถท้าทายตัวเองด้วยระยะนี้ได้เหมือนกัน เพื่อจะได้สนุกกับเส้นทางอย่างเต็มที่', 900.00, 15, 'K', '2021-12-30', '1', 'T', NULL, '2021-12-02 01:51:01', NULL),
-(4, 2, 2, 'ระยะทาง 10 กิโลเมตร', 'ระยะทาง 10 กิโลเมตร', '10 km เป็นระยะที่วิ่งในฟาร์มโชคชัยเต็มเส้นทาง และเข้าไปวิ่งในไร่สุวรรณเพียงบางส่วน เหมาะสมกับนักวิ่งที่ผ่านการวิ่งและซ้อมระยะ Mini Marathon มาแล้ว หรือหากจะท้ายทายตัวเองให้เป็น Mini Marathon ของตนเองครั้งแรกก็ได้เลยทีเดียว', '10 km เป็นระยะที่วิ่งในฟาร์มโชคชัยเต็มเส้นทาง และเข้าไปวิ่งในไร่สุวรรณเพียงบางส่วน เหมาะสมกับนักวิ่งที่ผ่านการวิ่งและซ้อมระยะ Mini Marathon มาแล้ว หรือหากจะท้ายทายตัวเองให้เป็น Mini Marathon ของตนเองครั้งแรกก็ได้เลยทีเดียว', 900.00, 10, 'K', '2021-12-30', '1', 'T', NULL, '2021-12-02 01:51:01', NULL),
-(5, 3, 2, 'ระยะทาง 5 กิโลเมตร', 'ระยะทาง 5 กิโลเมตร', '5 km เป็นระยะที่ได้สัมผัสกับบรรยากาศเส้นทางในฟาร์มโชคชัย เหมาะสมกับนักวิ่งที่ต้องการวิ่งแบบสบายๆ ไม่เร่งรีบมาก ซ้อมมาพอสมควร หรือจะเป็นระยะแรกของการเป็นนักวิ่งก็ได้ และไม่มีการจับเวลา', '5 km เป็นระยะที่ได้สัมผัสกับบรรยากาศเส้นทางในฟาร์มโชคชัย เหมาะสมกับนักวิ่งที่ต้องการวิ่งแบบสบายๆ ไม่เร่งรีบมาก ซ้อมมาพอสมควร หรือจะเป็นระยะแรกของการเป็นนักวิ่งก็ได้ และไม่มีการจับเวลา', 700.00, 5, 'K', '2021-12-30', '1', 'O', NULL, '2021-12-02 01:51:01', NULL);
+(1, 1, 1, '‘Fearless Gentlemen’ ระยะทาง 93  กม.', 'Fearless Gentlemen 93 กม.', 'เส้นทาง 93 กม. ของ ทัวร์ เดอ ฟาร์ม 8 ครั้งนี้ แตกต่างจากเส้นทาง ทัวร์ เดอ ฟาร์ม 7 100 กม โดยตัดเข้าถนนผ่านโรงเรียนลำทองหลาง ซึ่งเส้นทางนี้จะมีทางลงเขาที่ชันมาก ทำให้เป็นการปั่นลงเขาด้วยความเร็วสูง นักปั่นทุกท่านควรใช้ความระมัดระวัง ', 'This 93 km route of Tour de Farm 8 is different from the Tour de Farm 7 route 100 km by cycling through the road to Lam Thong Lang School.This path has a very steep downhill path resulting in a high-speed downhill ride. All cyclists should notice as a precaution.', 900.00, 93, 'K', '00:00:00', '2', 'T', NULL, '2021-12-02 01:51:01', NULL),
+(2, 2, 1, '‘Going Greener’ ระยะทาง 68  กม.', '‘Going Greener’ 68 km.', 'เส้นทาง 93 กม. ของ ทัวร์ เดอ ฟาร์ม 8 ครั้งนี้ แตกต่างจากเส้นทาง ทัวร์ เดอ ฟาร์ม 7 100 กม โดยตัดเข้าถนนผ่านโรงเรียนลำทองหลาง ซึ่งเส้นทางนี้จะมีทางลงเขาที่ชันมาก ทำให้เป็นการปั่นลงเขาด้วยความเร็วสูง นักปั่นทุกท่านควรใช้ความระมัดระวัง ', 'This 93 km route of Tour de Farm 8 is different from the Tour de Farm 7 route 100 km by cycling through the road to Lam Thong Lang School.This path has a very steep downhill path resulting in a high-speed downhill ride. All cyclists should notice as a precaution.', 900.00, 68, 'K', '00:00:00', '2', 'O', NULL, '2021-12-02 01:51:01', NULL),
+(3, 1, 2, 'ระยะทาง 15 กิโลเมตร', 'ระยะทาง 15 กิโลเมตร', '15 km เป็นระยะเต็ม ที่นักวิ่งจะได้สัมผัสกับทุกอย่างของวิถีการเกษตรแบบฟาร์มของฟาร์มโชคชัยและไร่สุวรรณ เหมาะสมกับนักวิ่งที่ความสามารถเคยวิ่งและซ้อมระยะนี้มาก่อน หรือแม้กระทั่งเคยผ่านการวิ่งระยะ Mini Marathon แต่ยังไม่ข้ามไป Half Marathon ก็สามารถท้าทายตัวเองด้วยระยะนี้ได้เหมือนกัน เพื่อจะได้สนุกกับเส้นทางอย่างเต็มที่', '15 km เป็นระยะเต็ม ที่นักวิ่งจะได้สัมผัสกับทุกอย่างของวิถีการเกษตรแบบฟาร์มของฟาร์มโชคชัยและไร่สุวรรณ เหมาะสมกับนักวิ่งที่ความสามารถเคยวิ่งและซ้อมระยะนี้มาก่อน หรือแม้กระทั่งเคยผ่านการวิ่งระยะ Mini Marathon แต่ยังไม่ข้ามไป Half Marathon ก็สามารถท้าทายตัวเองด้วยระยะนี้ได้เหมือนกัน เพื่อจะได้สนุกกับเส้นทางอย่างเต็มที่', 900.00, 15, 'K', '00:00:00', '1', 'T', NULL, '2021-12-02 01:51:01', NULL),
+(4, 2, 2, 'ระยะทาง 10 กิโลเมตร', 'ระยะทาง 10 กิโลเมตร', '10 km เป็นระยะที่วิ่งในฟาร์มโชคชัยเต็มเส้นทาง และเข้าไปวิ่งในไร่สุวรรณเพียงบางส่วน เหมาะสมกับนักวิ่งที่ผ่านการวิ่งและซ้อมระยะ Mini Marathon มาแล้ว หรือหากจะท้ายทายตัวเองให้เป็น Mini Marathon ของตนเองครั้งแรกก็ได้เลยทีเดียว', '10 km เป็นระยะที่วิ่งในฟาร์มโชคชัยเต็มเส้นทาง และเข้าไปวิ่งในไร่สุวรรณเพียงบางส่วน เหมาะสมกับนักวิ่งที่ผ่านการวิ่งและซ้อมระยะ Mini Marathon มาแล้ว หรือหากจะท้ายทายตัวเองให้เป็น Mini Marathon ของตนเองครั้งแรกก็ได้เลยทีเดียว', 900.00, 10, 'K', '00:00:00', '1', 'T', NULL, '2021-12-02 01:51:01', NULL),
+(5, 3, 2, 'ระยะทาง 5 กิโลเมตร', 'ระยะทาง 5 กิโลเมตร', '5 km เป็นระยะที่ได้สัมผัสกับบรรยากาศเส้นทางในฟาร์มโชคชัย เหมาะสมกับนักวิ่งที่ต้องการวิ่งแบบสบายๆ ไม่เร่งรีบมาก ซ้อมมาพอสมควร หรือจะเป็นระยะแรกของการเป็นนักวิ่งก็ได้ และไม่มีการจับเวลา', '5 km เป็นระยะที่ได้สัมผัสกับบรรยากาศเส้นทางในฟาร์มโชคชัย เหมาะสมกับนักวิ่งที่ต้องการวิ่งแบบสบายๆ ไม่เร่งรีบมาก ซ้อมมาพอสมควร หรือจะเป็นระยะแรกของการเป็นนักวิ่งก็ได้ และไม่มีการจับเวลา', 700.00, 5, 'K', '00:00:00', '1', 'O', NULL, '2021-12-02 01:51:01', NULL),
+(8, 2, 5, '‘Fearless Gentlemen’ ระยะทาง 93  กม.', '‘Fearless Gentlemen’ ระยะทาง 93  กม.', '‘Fearless Gentlemen’ ระยะทาง 93  กม.', '‘Fearless Gentlemen’ ระยะทาง 93  กม.', 1300.00, 93, 'Km.', '20:00:00', '1', 'T', NULL, '2022-02-14 02:56:16', '2022-02-15 02:52:15'),
+(9, 1, 5, '‘Going Greener’ ระยะทาง 68  กม.', '‘Going Greener’ ระยะทาง 68  กม.', '‘Going Greener’ ระยะทาง 68  กม.', '‘Going Greener’ ระยะทาง 68  กม.', 1200.00, 68, 'Km.', '20:00:00', '1', 'T', NULL, '2022-02-14 02:56:16', '2022-02-15 02:52:15');
 
 -- --------------------------------------------------------
 
@@ -673,7 +710,7 @@ INSERT INTO `users` (`id`, `name`, `lname`, `email`, `email_verified_at`, `passw
 (7, 'พงศกร', 'สิงหเสรี', 'vorz7k1@gmail.com', NULL, NULL, NULL, '2022-01-17 00:50:41', '2022-01-17 00:43:40', 'M', NULL, NULL, '089-923-4668', 23, 8, 1982, '1', '3-1012-00157-76-5', 'ไทย', 'AB', NULL, '100/187', 'คูคต', 'ลำลูกกา', 'ปทุมธานี', 'ไทย', '12130', 'poommy', 'singhaseree', '089-999-9999', NULL, NULL, NULL, NULL, '1', '108137944294721288725', 'https://lh3.googleusercontent.com/a-/AOh14GgbXS3vDZoPPoULCgMf36UQfSOZ6E6lpiT-WGuBqw=s96-c', 1),
 (8, 'poommy', 'singhaseree', 'vorz7k2@gmail.com', NULL, NULL, NULL, '2022-01-17 00:52:08', NULL, 'F', NULL, NULL, '089-999-9999', 13, 11, 1975, '1', '8-9898-98989-89', 'ไทย', 'AB', NULL, '11111', 'คูคต', 'ลำลูกกา', 'ปทุมธานี', 'ไทย', '12130', 'เก่ง', 'เก่ง', '089-923-4668', NULL, NULL, NULL, NULL, '1', NULL, NULL, 1),
 (9, 'Saifah', 'Phaiwan', 'puttasa_fa@hotmail.com', NULL, NULL, NULL, '2022-01-17 19:46:02', '2022-01-17 19:43:37', 'M', NULL, NULL, '080-056-8953', 28, 10, 1996, '1', '1-1996-00196-24-6', 'ไทย', 'B', NULL, '81 หมู่ 6 ต.ช่องสาริกา อ.พัฒนานิคม จ.ลพบุรี', 'ช่องสาริกา', 'พัฒนานิคม', 'ลพบุรี', 'ไทย', '15220', '-', '-', '080-056-8953', NULL, NULL, NULL, NULL, '1', '4597129987041422', 'https://graph.facebook.com/v3.3/4597129987041422/picture?type=normal', 1),
-(10, 'Dev.Phaiwan', '', 'farmchokchaisport2016@gmail.com', NULL, '$2y$10$L0BiTGJfMDlfLHNP4fvVNeMCNEpET9jt1ri4rh4WOONZvhQEaOA0.', 'TygbnW7OH7QK2vNlllRnW0IxkQlw4E7J3IooMPcURGvsLBKb8O27hPsAMG2m', '2022-01-19 23:22:44', '2022-01-19 23:27:54', 'M', NULL, NULL, '080-056-8953', 28, 10, 1996, '1', '1-1996-00196-24-6', 'ไทย', 'B', '-', '81/ m6', 'ช่องสาริกา', 'พัฒนานิคม', 'ลพบุรี', 'ไทย', '15220', '-', '-', '080-056-8953', NULL, NULL, NULL, NULL, '2', NULL, NULL, 1),
+(10, 'Dev.Phaiwan', '', 'farmchokchaisport2016@gmail.com', NULL, '$2y$10$L0BiTGJfMDlfLHNP4fvVNeMCNEpET9jt1ri4rh4WOONZvhQEaOA0.', 'oUVGTu05W3CCe8z70LsleVdoAxvthhdJzUAyr8KtG0L5LGo96nhxumYrabLn', '2022-01-19 23:22:44', '2022-01-19 23:27:54', 'M', NULL, NULL, '080-056-8953', 28, 10, 1996, '1', '1-1996-00196-24-6', 'ไทย', 'B', '-', '81/ m6', 'ช่องสาริกา', 'พัฒนานิคม', 'ลพบุรี', 'ไทย', '15220', '-', '-', '080-056-8953', NULL, NULL, NULL, NULL, '2', NULL, NULL, 1),
 (14, 'Saifah', 'phaiwan', 'saifah1928@gmail.com', NULL, NULL, NULL, '2022-02-02 23:37:18', NULL, 'M', NULL, NULL, '080-056-8953', 14, 10, 1934, '1', '1-1889-54645-46-5', 'ไทย', 'AB', NULL, '87/45', 'คลองหนึ่ง', 'คลองหลวง', 'ปทุมธานี', 'ไทย', '12120', '-', '-', '080-056-8953', NULL, NULL, NULL, NULL, '1', NULL, NULL, 1),
 (15, 'Phaiwan', '001', 'saifah19x28@gmail.com', NULL, NULL, NULL, '2022-02-02 23:51:06', NULL, 'M', NULL, NULL, '080-056-8953', 8, 9, 1937, '1', '1-9498-56566-55-4', 'ไทย', 'B', NULL, '89/99', 'คลองสามประเวศ', 'ลาดกระบัง', 'กรุงเทพมหานคร', 'ไทย', '10520', '-', '-', '080-056-8953', NULL, NULL, NULL, NULL, '1', NULL, NULL, 1),
 (20, 'Admin Drive Thru', NULL, 'dev.saifahA@gmail.com', NULL, '$2y$10$UbhXLhr49/jCB7LZ8ftFpOgNkaly69BXwxIb4p.Lp.ljcbYxHfL4S', NULL, '2022-02-03 20:08:38', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2', NULL, NULL, NULL);
@@ -781,6 +818,12 @@ ALTER TABLE `tournaments`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tournaments_sponsors`
+--
+ALTER TABLE `tournaments_sponsors`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tournament_types`
 --
 ALTER TABLE `tournament_types`
@@ -824,7 +867,7 @@ ALTER TABLE `fileimages`
 -- AUTO_INCREMENT for table `generations`
 --
 ALTER TABLE `generations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -836,13 +879,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `options`
 --
 ALTER TABLE `options`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `option_items`
 --
 ALTER TABLE `option_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -881,10 +924,22 @@ ALTER TABLE `sponsors`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `tournaments`
+--
+ALTER TABLE `tournaments`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tournaments_sponsors`
+--
+ALTER TABLE `tournaments_sponsors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `tournament_types`
 --
 ALTER TABLE `tournament_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
