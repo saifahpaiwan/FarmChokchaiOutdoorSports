@@ -36,7 +36,7 @@ class ManageController extends Controller
         $data=array(); 
         return view('admin.settings', compact('data'));
     }    
-
+ 
     public function checkOrderslist()
     {    
         $data=array(
@@ -1077,6 +1077,122 @@ class ManageController extends Controller
             ->where('users.id', $request->id)  
             ->delete();
         }
+        return $data;
+    }
+
+    public function sponsorslist()
+    {    
+        $data=array(); 
+        return view('admin.sponsorslist', compact('data'));
+    } 
+     
+    public function datatableSponsorsmg(Request $request)
+    {    
+        if($request->ajax()) {     
+            $keywrodSQL=""; $daterangeSQL="";
+            if(isset($request->keywrod)){
+                if(!empty($request->keywrod)){
+                    $keywrodSQL="and sponsors.name LIKE '%".$request->keywrod."%'  
+                    or sponsors.detail LIKE '%".$request->keywrod."%'";
+                }
+            }
+
+            if(!empty($request->daterange)){ 
+                $daterangeSQL=" and (sponsors.created_at BETWEEN '".$request->daterange." 00:00:00 ' AND '".$request->daterange." 23:59:59 ') ";
+            }
+
+            $data = DB::select('select * 
+            from `sponsors`    
+            where sponsors.id!=""
+           '.$keywrodSQL.' '.$daterangeSQL.'
+            order by sponsors.order_number asc'); 
+
+            return Datatables::of($data)
+            ->addIndexColumn() 
+            ->addColumn('img', function($row){    
+                $img='<img src="'.asset("images/sponsors/".$row->filename).'" style="width: 100px;height: 70px;border-radius: 0.25rem;">';
+                return $img;
+            })    
+            ->addColumn('name', function($row){    
+                return $row->name;
+            })   
+            ->addColumn('status', function($row){
+                $status='<span class="badge badge-info"> เปิดการแสดงผล </span>';  
+                if($row->deleted_at=="1"){
+                    $status='<span class="badge badge-danger"> ปิดการแสดงผล </span>';
+                }
+                return $status;
+            })  
+            ->addColumn('created_at', function($row){    
+                return date("m/d/Y", strtotime($row->created_at));
+            }) 
+            ->addColumn('buttonMg', function($row){     
+                return '<div class="text-right"><button type="button" class="btn btn-primary waves-effect waves-light btn-sm" id="sponsors-edit" data-id="'.$row->id.'">ตรวจสอบ  <i class="mdi mdi-file-document-box-search-outline"></i></button></div>';
+            })
+            ->rawColumns(['img', 'name', 'status', 'created_at', 'buttonMg'])
+            ->make(true);
+        }
+    }  
+
+    public function sponsorsSave(Request $request)
+    {
+        if(isset($request)){ 
+            $msg="";
+            if(isset($request->statusDatas)){
+                if($request->statusDatas=="C"){
+                    $file_name=NULL;  
+                    $DateTime="created_at"; 
+                    $msg='Save data successfully.';
+                } else if($request->statusDatas=="U"){
+                    $file_name=$request->hid_file_upload; 
+                    $DateTime="updated_at"; 
+                    $msg='Update data successfully.';
+                }
+            } 
+            if($request->file('file_upload')){
+                if(!empty($request->file('file_upload'))){ 
+                    $uploade_location = 'images/sponsors/'; 
+                    if($request->statusDatas=="U"){
+                        unlink($uploade_location.$file_name);
+                    } 
+                    $file = $request->file('file_upload');
+                    $file_gen = hexdec(uniqid());
+                    $file_ext = strtolower($file->getClientOriginalExtension()); 
+                    $file_name = $file_gen.'.'.$file_ext;
+                    $file->move($uploade_location, $file_name); 
+                } 
+            }
+
+            $data=array(
+                "order_number"  => $request->sponsors_ordernumber,
+                "name"          => $request->sponsors_name,
+                "detail"        => $request->sponsors_detail,
+                "filename"      => $file_name,
+
+                "deleted_at"      => $request->sponsors_status,
+
+                $DateTime    => new \DateTime(),
+            );
+            if(isset($request->statusDatas)){
+                if($request->statusDatas=="C"){
+                    DB::table('sponsors')->insert($data);
+                } else if($request->statusDatas=="U"){ 
+                    DB::table('sponsors')
+                    ->where('sponsors.id', $request->sponsors_id)  
+                    ->update($data);
+                }
+            }   
+        }
+        return redirect()->route('sponsorslist')->with('success', $msg); 
+    }
+
+    public function datasponsorsedit(Request $request)
+    {
+        if(isset($request)){
+            $data=DB::table('sponsors') 
+            ->where('sponsors.id', $request->id)  
+            ->first(); 
+        }  
         return $data;
     }
 }

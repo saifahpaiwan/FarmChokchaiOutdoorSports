@@ -319,7 +319,7 @@ class PromotioncodeController extends Controller
             ->addIndexColumn()
             ->addColumn('sponsors_img', function($row){   
                 $img=asset('images/sponsors').'/'.$row->filename; 
-                return '<img src="'.$img.'" alt="" width="100%">';;
+                return '<img src="'.$img.'" alt="" style="width: 100px;height: 70px;border-radius: 0.25rem;">';
             })  
             ->addColumn('sponsors_name', function($row){    
                 return $row->name;

@@ -36,8 +36,7 @@ Route::get('/joinus', [HomeController::class, 'joinus'])->name('joinus');
 Route::get('/privacpolicy', [HomeController::class, 'privacpolicy'])->name('privacpolicy');
 Route::get('/conditions', [HomeController::class, 'conditions'])->name('conditions');
 Route::get('/event', [HomeController::class, 'event'])->name('event');  
-  
-
+ 
 Route::post('check_promotion_code', [TournamentsController::class, 'check_promotion_code'])->name('check_promotion_code.post');
 
 Route::middleware(['is_users'])->group(function () { 
@@ -154,6 +153,18 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::get('datatableOption', [MgeventController::class, 'datatableOption'])->name('datatableOption.post'); 
     Route::post('closeOptionType', [MgeventController::class, 'closeOptionType'])->name('closeOptionType.post');
     Route::post('createTournamentsSponsors', [MgeventController::class, 'createTournamentsSponsors'])->name('createTournamentsSponsors.post');
-    Route::post('removeTournamentsSponsors', [MgeventController::class, 'removeTournamentsSponsors'])->name('removeTournamentsSponsors.post');  
-    
+    Route::post('removeTournamentsSponsors', [MgeventController::class, 'removeTournamentsSponsors'])->name('removeTournamentsSponsors.post');
+    Route::post('tournamentdataedit', [MgeventController::class, 'tournamentdataedit'])->name('tournamentdataedit.post');  
+    Route::get('datatableGenerations', [MgeventController::class, 'datatableGenerations'])->name('datatableGenerations.post'); 
+    Route::post('closeGenerations', [MgeventController::class, 'closeGenerations'])->name('closeGenerations.post');
+    Route::post('optiondataedit', [MgeventController::class, 'optiondataedit'])->name('optiondataedit.post');  
+    Route::get('datatableOptionsubs', [MgeventController::class, 'datatableOptionsubs'])->name('datatableOptionsubs.post'); 
+    Route::post('closeOptionSubs', [MgeventController::class, 'closeOptionSubs'])->name('closeOptionSubs.post');
+
+    // =============== จัดการงาน Sponsors =============== //
+    Route::get('/sponsorslist', [ManageController::class, 'sponsorslist'])->name('sponsorslist'); 
+    Route::get('datatableSponsorsmg', [ManageController::class, 'datatableSponsorsmg'])->name('datatableSponsorsmg.post'); 
+    Route::post('sponsorsSave', [ManageController::class, 'sponsorsSave'])->name('sponsorsSave.post');
+    Route::post('datasponsorsedit', [ManageController::class, 'datasponsorsedit'])->name('datasponsorsedit.post');   
+    Route::post('closeSponsors', [ManageController::class, 'closeSponsors'])->name('closeSponsors.post');    
 });

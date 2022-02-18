@@ -312,7 +312,8 @@ class TournamentsController extends Controller
                 <i class="fa fa-times" aria-hidden="true"></i>
                 This promotion code could not be found. 
               </span>',
-            );
+            ); 
+            //==================================// 
             if($request->status=="U"){
                 $tems=DB::table('cart_sport_tems') 
                 ->select('cart_sport_tems.user_id as user_id')   
@@ -582,7 +583,7 @@ class TournamentsController extends Controller
     }
 
     public function createOne(Request $request)
-    { 
+    {  
         if(isset($request)){
             $id=Auth::user()->id; $option=[];
             $price=0; $discount=0; $nettotal=0; $codesID=NULL;
@@ -824,6 +825,7 @@ class TournamentsController extends Controller
             ->first();
             $priceRang=$tournament->price;
         }
+        
         if($tournament->function=="O"){
             $data = DB::select('select generations.id as g_id, generations.detail_th as detail_th from `generations`   
             where `generations`.`tournament_id` = '.$request->sport_id.' 
@@ -837,7 +839,7 @@ class TournamentsController extends Controller
             and `generations`.`age_min` <= '.$age.' 
             and `generations`.`age_max` >= '.$age); 
         }  
-
+ 
         $items=[];
         foreach($data as $key=>$row){
             $items['g_id'] = $row->g_id;

@@ -58,7 +58,7 @@ class MgeventController extends Controller
     }
 
     public function eventsave(Request $request)
-    {
+    {   
         if(isset($request)){
             $validatedData = $request->validate(
                 [  
@@ -258,7 +258,7 @@ class MgeventController extends Controller
                                         if($request->statusDatas=="C"){
                                             DB::table('generations')->insert($data_g);
                                         } else if($request->statusDatas=="U"){ 
-                                            if($row['id']=="0" && $row_g['hid-generations-id']=="0"){
+                                            if($row_g['hid-generations-id']=="0"){
                                                 DB::table('generations')->insert($data_g);
                                             } else {
                                                 DB::table('generations')
@@ -323,7 +323,7 @@ class MgeventController extends Controller
             return Datatables::of($data)
             ->addIndexColumn() 
             ->addColumn('icon', function($row){    
-                $icon='<img src="'.asset("images/event/icon/".$row->icon).'" style="width: 40px;">';
+                $icon='<img src="'.asset("images/event/icon/".$row->icon).'" style="width: 40px;border-radius: 0.25rem;">';
                 return $icon;
             })    
             ->addColumn('event_name', function($row){    
@@ -387,7 +387,7 @@ class MgeventController extends Controller
             ->addIndexColumn()  
             ->addColumn('buttonMg', function($row){ 
                 $input="";
-                $input='<button type="button" class="btn btn-icon waves-effect waves-light btn-danger btn-xs delete-tournament" data-id="'.$row->id.'"> <i class="fas fa-times"></i> </button>';
+                $input='<button type="button" class="btn btn-icon waves-effect waves-light btn-danger btn-xs delete-tournament" data-id="'.$row->id.'"> <i class="fas fa-times"></i> </button>'; 
                 $input.='<input type="hidden" id="id-tournament_type_id" class="hid-tournament_type_id" name="tournament['.$row->id.'][id]" value="'.$row->id.'">';
                 $input.='<input type="hidden" id="id-tournament_type_th" class="hid-tournament_type_th" name="tournament['.$row->id.'][nameth]" value="'.$row->name_th.'">';
                 $input.='<input type="hidden" id="id-tournament_type_en" class="hid-tournament_type_en" name="tournament['.$row->id.'][nameen]" value="'.$row->name_en.'">';
@@ -418,7 +418,7 @@ class MgeventController extends Controller
                 return $input;
             })  
             ->addColumn('nameth', function($row){ 
-                return $row->name_th;
+                return $row->name_th.' <span data-id="'.$row->id.'" class="tournament-modal-edit"> <i class="icon-note"></i> </span>';
             })
             ->addColumn('price', function($row){ 
                 return $row->price;
@@ -448,15 +448,20 @@ class MgeventController extends Controller
     {
         if(isset($request)){
             $id=$request->id;
-            DB::delete('DELETE FROM `tournament_types` WHERE tournament_types.id= '.$id);
-            DB::delete('DELETE FROM `generations` WHERE generations.tournament_type_id= '.$id); 
+            $count=DB::table('tournament_types') 
+            ->where('tournament_types.id', $id)  
+            ->count(); 
+            if($count>0){
+                DB::delete('DELETE FROM `tournament_types` WHERE tournament_types.id= '.$id);
+                DB::delete('DELETE FROM `generations` WHERE generations.tournament_type_id= '.$id); 
+            }
         }
         
         return true;
     }
 
     public function optionSave(Request $request)
-    {
+    {    
         if(isset($request)){
             if(isset($request->statusDatas)){
                 if($request->statusDatas=="C"){
@@ -554,7 +559,7 @@ class MgeventController extends Controller
                 return $input;
             })  
             ->addColumn('name', function($row){ 
-                return $row->name;
+                return $row->name.' <span data-id="'.$row->id.'" class="options-modal-edit"> <i class="icon-note"></i> </span>';
             })
             ->addColumn('detail', function($row){ 
                 return $row->detail;
@@ -562,9 +567,9 @@ class MgeventController extends Controller
             ->addColumn('status', function($row){ 
                 $status="";
                 if($row->status==1){
-                    $status=" เสื้อแข่ง ";
+                    $status=" มีตัวเลือก ";
                 } else {
-                    $status=" Option เพิ่มเติม ";
+                    $status=" ไม่มีตัวเลือก ";
                 }
                 return $status;
             })  
@@ -572,6 +577,7 @@ class MgeventController extends Controller
             ->make(true);
         }
     }  
+    
 
     public function closeOptionType(Request $request)
     {
@@ -605,4 +611,107 @@ class MgeventController extends Controller
         }
         return true;
     }
+
+    public function tournamentdataedit(Request $request)
+    {
+        if(isset($request)){
+            $data=DB::table('tournament_types') 
+            ->where('tournament_types.id', $request->id)  
+            ->first(); 
+        }  
+        return $data;
+    }
+
+    public function optiondataedit(Request $request)
+    {
+        if(isset($request)){
+            $data=DB::table('options') 
+            ->where('options.id', $request->id)  
+            ->first(); 
+        }  
+        return $data;
+    }
+ 
+    public function datatableGenerations(Request $request)
+    {
+        if($request->ajax()) {     
+            $data = DB::select('select * 
+            from `generations`    
+            where generations.tournament_id="'.$request->sport_id.'"
+            and generations.tournament_type_id="'.$request->type_id.'"');  
+            return Datatables::of($data)
+            ->addIndexColumn()  
+            ->addColumn('buttonMg', function($row){  
+                $input='<button type="button" class="btn btn-icon waves-effect waves-light btn-danger btn-xs delete-generations" data-id="'.$row->id.'"> <i class="fas fa-times"></i> </button>'; 
+                $input.='<input type="hidden" id="id-generations-id" class="hid-generations-id" name="generations['.$row->id.'][id]" value="'.$row->id.'">';
+                $input.='<input type="hidden" id="id-generations-name-th" class="hid-generations-name-th" name="generations['.$row->id.'][nameth]" value="'.$row->name_th.'">';
+                $input.='<input type="hidden" id="id-generations-name-en" class="hid-generations-name-en" name="generations['.$row->id.'][nameen]" value="'.$row->name_en.'">';
+                $input.='<input type="hidden" id="id-generations-age" class="hid-generations-age" name="generations['.$row->id.'][age]" value="'.$row->age_min.'">';
+                $input.='<input type="hidden" id="id-generations-age-to" class="hid-generations-age-to" name="generations['.$row->id.'][ageto]" value="'.$row->age_max.'">';
+                $input.='<input type="hidden" id="id-generations-sex" class="hid-generations-sex" name="generations['.$row->id.'][sex]" value="'.$row->sex.'">';
+                return $input;
+            })  
+            ->addColumn('name', function($row){ 
+                return $row->name_th;
+            })
+            ->addColumn('age', function($row){ 
+                return $row->age_min." - ".$row->age_max." ปี";
+            }) 
+            ->addColumn('sex', function($row){ 
+                $sex="";
+                if($row->sex=="M"){
+                    $sex="เพศชาย";
+                } else if($row->sex=="F"){
+                    $sex="เพศหญิง";
+                } 
+                return $sex;
+            })
+            ->rawColumns(['buttonMg', 'name', 'age', 'sex'])
+            ->make(true);
+        }
+    }
+
+    public function closeGenerations(Request $request)
+    {
+        if(isset($request)){
+            $id=$request->id;
+            DB::delete('DELETE FROM `generations` WHERE generations.id= '.$id); 
+        }
+        return true; 
+    }
+
+    public function closeOptionSubs(Request $request)
+    {
+        if(isset($request)){
+            $id=$request->id;
+            DB::delete('DELETE FROM `option_items` WHERE option_items.id= '.$id); 
+        }
+        return true; 
+    } 
+
+    public function datatableOptionsubs(Request $request)
+    {
+        if($request->ajax()) {     
+            $data = DB::select('select * 
+            from `option_items`    
+            where option_items.option_id="'.$request->id.'"');  
+            return Datatables::of($data)
+            ->addIndexColumn()  
+            ->addColumn('buttonMg', function($row){  
+                $input='<button type="button" class="btn btn-icon waves-effect waves-light btn-danger btn-xs delete-option-sub" data-id="'.$row->id.'"> <i class="fas fa-times"></i> </button>';
+                $input.='<input type="hidden" id="id-option-sub-id" class="hid-option-sub-name" name="optionsub['.$row->id.'][id]" value="'.$row->id.'">';
+                $input.='<input type="hidden" id="id-option-sub-name" class="hid-option-sub-name" name="optionsub['.$row->id.'][name]" value="'.$row->topic.'">';
+                $input.='<input type="hidden" id="id-option-sub-detail" class="hid-option-sub-detail" name="optionsub['.$row->id.'][detail]" value="'.$row->detail.'">';
+                return $input;
+            })  
+            ->addColumn('name', function($row){ 
+                return $row->topic;
+            })
+            ->addColumn('detail', function($row){ 
+                return $row->detail;
+            }) 
+            ->rawColumns(['buttonMg', 'name', 'detail'])
+            ->make(true);
+        }
+    } 
 }

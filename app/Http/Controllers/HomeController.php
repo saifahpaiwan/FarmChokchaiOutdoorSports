@@ -13,47 +13,64 @@ class HomeController extends Controller
 { 
     public function index()
     {  
-        return view('home');
+        $data=array(
+            "sponsors" => $this->Query_sponsors(null),
+        );
+        return view('home', compact('data'));
     }  
 
     public function about()
     {  
-        return view('about');
+        $data=array(
+            "sponsors" => $this->Query_sponsors(null),
+        );
+        return view('about', compact('data'));
     }  
 
     public function contact()
     {  
-        return view('contact');
+        $data=array(
+            "sponsors" => $this->Query_sponsors(null),
+        );
+        return view('contact', compact('data'));
     }
     
     public function checkapplication()
     {  
-        return view('checkapplication');
+        $data=array(
+            "sponsors" => $this->Query_sponsors(null),
+        );
+        return view('checkapplication', compact('data'));
     } 
 
     public function joinus()
     {  
-        return view('joinus');
+        $data=array(
+            "sponsors" => $this->Query_sponsors(null),
+        );
+        return view('joinus', compact('data'));
     }  
 
     public function privacpolicy()
     {  
-        return view('privacpolicy');
+        $data=array(
+            "sponsors" => $this->Query_sponsors(null),
+        );
+        return view('privacpolicy', compact('data'));
     }   
 
     public function conditions()
     {  
-        return view('conditions');
+        $data=array(
+            "sponsors" => $this->Query_sponsors(null),
+        );
+        return view('conditions', compact('data'));
     }   
-    
-    // public function test()
-    // {  
-    //     return view('test');
-    // }  
-
+     
     public function orderview($get_id)
     {     
         $data = array( 
+            "sponsors" => $this->Query_sponsors(null),
             'query_payment' => $this->query_payment($get_id, false, null), 
             'get_id'   => $get_id,
         ); 
@@ -63,6 +80,7 @@ class HomeController extends Controller
     public function playerinfo($get_id)
     {    
         $data = array(   
+            "sponsors" => $this->Query_sponsors(null),
             'get_id'   => $get_id,
         ); 
         return view('playerinfo', compact('data'));  
@@ -72,6 +90,7 @@ class HomeController extends Controller
     { 
         $id=Auth::user()->id;  
         $data = array( 
+            "sponsors" => $this->Query_sponsors(null),
             'users' => User::find($id), 
         ); 
         return view('member', compact('data'));
@@ -82,6 +101,7 @@ class HomeController extends Controller
         $id=Auth::user()->id;  
         $user=User::find($id);  
         $data = array( 
+            "sponsors" => $this->Query_sponsors(null),
             'users' => $user, 
             'contestant' => $this->contestant($id, $get_id),
             'QueryTournaments' => $this->Query_tournaments_type($get_id),
@@ -95,6 +115,7 @@ class HomeController extends Controller
     { 
         $id=Auth::user()->id;  
         $data = array( 
+            "sponsors" => $this->Query_sponsors(null),
             'users' => User::find($id), 
             'contestant' => $this->contestant($id, $get_id),
             'QueryTournaments' => $this->Query_tournaments_type($get_id),
@@ -154,6 +175,7 @@ class HomeController extends Controller
     { 
         $id=Auth::user()->id;  
         $data = array( 
+            "sponsors" => $this->Query_sponsors(null),
             'users' => User::find($id), 
             'query_bill' => $this->query_bill()
         );  
@@ -164,6 +186,7 @@ class HomeController extends Controller
     {   
         $id=Auth::user()->id;  
         $data = array( 
+            "sponsors" => $this->Query_sponsors(null),
             'query_payment' => $this->query_payment($get_id, false, null),
             'users' => User::find($id), 
             'get_id'   => $get_id,
@@ -180,6 +203,7 @@ class HomeController extends Controller
         ->where('bill_tems.users_id', $id) 
         ->get();  
         $data = array(  
+            "sponsors" => $this->Query_sponsors(null),
             'users' => User::find($id),  
             "orderlist" => $order_pay,
         ); 
@@ -190,6 +214,7 @@ class HomeController extends Controller
     {   
         $id=Auth::user()->id;  
         $data = array(  
+            "sponsors" => $this->Query_sponsors(null),
             'query_payment' => $this->query_payment($get_id, false, null),
             'users' => User::find($id), 
             'get_id'   => $get_id,
@@ -198,9 +223,10 @@ class HomeController extends Controller
     }    
 
     public function event()
-    {   
+    {    
         $data = array(
-            "event" => $this->Query_event(null)
+            "sponsors" => $this->Query_sponsors(null),
+            "event" =>  $this->Query_event(null),
         ); 
         return view('event', compact('data'));
     } 
@@ -209,41 +235,47 @@ class HomeController extends Controller
     { 
         $id=Auth::user()->id;  
         $data = array( 
+            "sponsors" => $this->Query_sponsors($get_id),
             "event" => $this->Query_event($get_id),
             'users' => User::find($id), 
             "get_id" => $get_id,
-        ); 
+        );  
         return view('registerform', compact('data'));
     } 
-
-    // public function mail()
-    // { 
-    //     $id=Auth::user()->id;  
-    //     $data = array( 
-    //         'QueryOrder' => $this->query_payment(3, false, null),
-    //         'users' => User::find($id), 
-    //     ); 
-    //     return view('Mail.email', compact('data'));
-    // }    
-
+  
     //========================================================================================================//
+
+    public function Query_sponsors($get_id)
+    {
+        if(!empty($get_id)){
+            $data=DB::table('tournaments_sponsors')->select('sponsors.filename as filename', 'sponsors.name as name', 'sponsors.detail as detail')    
+            ->leftJoin('sponsors', 'tournaments_sponsors.sponsors_id', '=', 'sponsors.id')  
+            ->where('sponsors.deleted_at', '0') 
+            ->where('tournaments_sponsors.tournament_id', $get_id) 
+            ->get(); 
+        } else {
+            $data=DB::table('sponsors')->select('*')    
+            ->where('sponsors.deleted_at', '0') 
+            ->orderBy('sponsors.order_number', 'asc')
+            ->get(); 
+        } 
+        return $data;
+    }
  
     public function Query_event($get_id)
     {
         if(!empty($get_id)){
             $data=DB::table('tournaments')->select('*')    
             ->where('tournaments.deleted_at', NULL)
-            ->where('tournaments.status_event', 1)
-            ->where('tournaments.status_register', 1) 
+            ->where('tournaments.status_event', 1) 
             ->where('tournaments.id', $get_id) 
             ->first(); 
         } else {
             $data=DB::table('tournaments')->select('*')    
             ->where('tournaments.deleted_at', NULL)
-            ->where('tournaments.status_event', 1)
-            ->where('tournaments.status_register', 1) 
+            ->where('tournaments.status_event', 1) 
             ->get(); 
-        }
+        } 
         return $data;
     }
 
