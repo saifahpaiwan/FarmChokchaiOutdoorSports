@@ -310,7 +310,7 @@ class MgeventController extends Controller
 
         $data = DB::select('select * 
         from `tournaments`    
-        where tournaments.id!=""
+        where tournaments.deleted_at=0
         '.$event_idSQL.' '.$keywrodSQL.' '.$type_idSQL.' '.$daterangeSQL.'
         order by tournaments.id DESC'); 
         return $data;
@@ -714,4 +714,18 @@ class MgeventController extends Controller
             ->make(true);
         }
     } 
+  
+    public function closeEvent(Request $request)
+    {
+        if(isset($request)){
+            $data=array(
+                "deleted_at" => 1,
+                "updated_at"    => new \DateTime(),
+            );
+            DB::table('tournaments') 
+            ->where('tournaments.id', $request->id)  
+            ->update($data);
+        } 
+        return true;
+    }
 }

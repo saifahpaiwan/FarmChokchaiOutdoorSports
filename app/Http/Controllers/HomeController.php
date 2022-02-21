@@ -8,16 +8,25 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
- 
+use Illuminate\Support\Facades\Storage; 
 class HomeController extends Controller
 { 
     public function index()
-    {  
+    {       
         $data=array(
-            "sponsors" => $this->Query_sponsors(null),
+            "Querywebsite"  => $this->Querywebsite(),
+            "sponsors" => $this->Query_sponsors(null),  
         );
         return view('home', compact('data'));
     }  
+
+    public function Querywebsite(){
+        $data=DB::table('website') 
+        ->select('*')   
+        ->where('website.deleted_at',0) 
+        ->first(); 
+        return $data;
+    }
 
     public function about()
     {  
@@ -142,7 +151,7 @@ class HomeController extends Controller
         ->where('tournaments.status_event', 1)
         ->where('tournaments.status_register', 1) 
         ->where('tournaments.id', $id) 
-        ->where('tournaments.deleted_at', NULL) 
+        ->where('tournaments.deleted_at',0) 
         ->first(); 
         return $data;
     }
@@ -266,13 +275,13 @@ class HomeController extends Controller
     {
         if(!empty($get_id)){
             $data=DB::table('tournaments')->select('*')    
-            ->where('tournaments.deleted_at', NULL)
+            ->where('tournaments.deleted_at', 0)
             ->where('tournaments.status_event', 1) 
             ->where('tournaments.id', $get_id) 
             ->first(); 
         } else {
             $data=DB::table('tournaments')->select('*')    
-            ->where('tournaments.deleted_at', NULL)
+            ->where('tournaments.deleted_at', 0)
             ->where('tournaments.status_event', 1) 
             ->get(); 
         } 

@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ReportmatchController;
 use App\Http\Controllers\PromotioncodeController;
 use App\Http\Controllers\MgeventController;
+use App\Http\Controllers\MgwebsiteController;
  
 /*
 |--------------------------------------------------------------------------
@@ -160,11 +161,16 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::post('optiondataedit', [MgeventController::class, 'optiondataedit'])->name('optiondataedit.post');  
     Route::get('datatableOptionsubs', [MgeventController::class, 'datatableOptionsubs'])->name('datatableOptionsubs.post'); 
     Route::post('closeOptionSubs', [MgeventController::class, 'closeOptionSubs'])->name('closeOptionSubs.post');
+    Route::post('closeEvent', [MgeventController::class, 'closeEvent'])->name('closeEvent.post');  
 
-    // =============== จัดการงาน Sponsors =============== //
+    // =============== จัดการ Sponsors =============== //
     Route::get('/sponsorslist', [ManageController::class, 'sponsorslist'])->name('sponsorslist'); 
     Route::get('datatableSponsorsmg', [ManageController::class, 'datatableSponsorsmg'])->name('datatableSponsorsmg.post'); 
     Route::post('sponsorsSave', [ManageController::class, 'sponsorsSave'])->name('sponsorsSave.post');
     Route::post('datasponsorsedit', [ManageController::class, 'datasponsorsedit'])->name('datasponsorsedit.post');   
-    Route::post('closeSponsors', [ManageController::class, 'closeSponsors'])->name('closeSponsors.post');    
+    Route::post('closeSponsors', [ManageController::class, 'closeSponsors'])->name('closeSponsors.post');     
+
+    // =============== จัดการหน้าเว็บไซต์ =============== //
+    Route::get('/mgWebsite', [MgwebsiteController::class, 'mgWebsite'])->name('mgWebsite'); 
+    Route::post('websitesave', [MgwebsiteController::class, 'websitesave'])->name('websitesave.post'); 
 });

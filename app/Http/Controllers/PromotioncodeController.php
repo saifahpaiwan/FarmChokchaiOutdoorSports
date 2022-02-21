@@ -94,10 +94,10 @@ class PromotioncodeController extends Controller
         left join `users` on `promotion_codes`.`user_create` = `users`.`id`
         left join users as users_verify on `promotion_codes`.`user_id` = `users_verify`.`id`
         left join `tournaments` on `promotion_codes`.`sport_id` = `tournaments`.`id`
-        where promotion_codes.sport_id = '.$sportIDSQL.' 
+        where tournaments.deleted_at="0"
+        and promotion_codes.sport_id='.$sportIDSQL.' 
         '.$status_idSQL.' '.$keywordSQL.'
-        order by promotion_codes.id DESC'); 
-
+         order by promotion_codes.id DESC');  
         return $data;
     }
     

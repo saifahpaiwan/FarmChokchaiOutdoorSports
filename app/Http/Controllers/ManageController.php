@@ -21,7 +21,7 @@ class ManageController extends Controller
     public function dashboard()
     {   
         $Query=DB::table('tournaments')->select('*')    
-        ->where('tournaments.deleted_at', NULL)
+        ->where('tournaments.deleted_at', 0)
         ->where('tournaments.status_event', 1)
         ->where('tournaments.status_register', 1) 
         ->get(); 
@@ -96,14 +96,14 @@ class ManageController extends Controller
     {
         if(!empty($get_id)){
             $data=DB::table('tournaments')->select('*')    
-            ->where('tournaments.deleted_at', NULL)
+            ->where('tournaments.deleted_at', 0)
             ->where('tournaments.status_event', 1)
             ->where('tournaments.status_register', 1) 
             ->where('tournaments.id', $get_id) 
             ->first(); 
         } else {
             $data=DB::table('tournaments')->select('*')    
-            ->where('tournaments.deleted_at', NULL)
+            ->where('tournaments.deleted_at', 0)
             ->where('tournaments.status_event', 1)
             ->where('tournaments.status_register', 1) 
             ->get(); 
@@ -1103,7 +1103,7 @@ class ManageController extends Controller
 
             $data = DB::select('select * 
             from `sponsors`    
-            where sponsors.id!=""
+            where sponsors.deleted_at in (0,1)
            '.$keywrodSQL.' '.$daterangeSQL.'
             order by sponsors.order_number asc'); 
 
@@ -1195,4 +1195,15 @@ class ManageController extends Controller
         }  
         return $data;
     }
+
+    public function closeSponsors(Request $request)
+    {
+        if(isset($request)){
+            $data=DB::table('sponsors')
+            ->where('sponsors.id', $request->id)  
+            ->delete();
+        }
+        return $data;
+    }
+    
 }
