@@ -55,7 +55,7 @@ class LoginController extends Controller
             if(auth()->user()->is_users == 1){
                 return redirect()->route('home');
             } else if(auth()->user()->is_users == 2){
-                return redirect()->route('dashboard');
+                return redirect()->route('racePrograms', [1]);
             }  
         } else {
             return redirect()->route('login')->with('error', 'Email-address and password are Wrong'); 

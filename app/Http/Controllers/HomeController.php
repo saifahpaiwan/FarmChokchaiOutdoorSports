@@ -354,7 +354,7 @@ class HomeController extends Controller
         $data=DB::table('bill_tems') 
         ->select('bill_tems.id as bill_id', 'bill_tems.order_number as order_number', 
         'bill_tems.price_total as price_total', 'bill_tems.price_discount as price_discount', 'bill_tems.net_total as net_total',
-        'bill_tems.created_at as created_at', 'tournaments.name_th as tournamentName', 'tournaments.race_type as raceType',
+        'bill_tems.created_at as created_at', 'bill_tems.updated_at as updated_at', 'tournaments.name_th as tournamentName', 'tournaments.race_type as raceType',
         'users.name as users_fname',  'users.lname as users_lname', 'cart_sport_tems.id as cart_sport_id', 'cart_sport_tems.code as code',
         'users_team.name as users_team_fname',  'users_team.lname as users_team_lname', 'users_team.sex as sex', 'users_team.id as users_tems_id',
         'tournament_types.name_th as tournament_type_name', 'generations.detail_th as generations', 'cart_sport_tems.option_id as option_id',
@@ -398,6 +398,7 @@ class HomeController extends Controller
                 $items[$row->bill_id]['created_at'] = $row->created_at;
                 $items[$row->bill_id]['created_at_strtotime'] = date("m/d/Y", strtotime($row->created_at)); 
                 $items[$row->bill_id]['created_at_carbon'] = Carbon::parse($row->created_at)->diffForHumans(); 
+                $items[$row->bill_id]['updated_at_carbon'] = Carbon::parse($row->updated_at)->diffForHumans(); 
 
                 $items[$row->bill_id]['payment_status'] = $row->payment_status;
                 $items[$row->bill_id]['payment_type'] = $row->payment_type;

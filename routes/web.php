@@ -12,7 +12,8 @@ use App\Http\Controllers\ReportmatchController;
 use App\Http\Controllers\PromotioncodeController;
 use App\Http\Controllers\MgeventController;
 use App\Http\Controllers\MgwebsiteController;
- 
+use App\Http\Controllers\DashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -173,4 +174,5 @@ Route::middleware(['isAdmin'])->group(function () {
     // =============== จัดการหน้าเว็บไซต์ =============== //
     Route::get('/mgWebsite', [MgwebsiteController::class, 'mgWebsite'])->name('mgWebsite'); 
     Route::post('websitesave', [MgwebsiteController::class, 'websitesave'])->name('websitesave.post'); 
+ 
 });
