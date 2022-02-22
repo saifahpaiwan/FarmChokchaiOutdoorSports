@@ -312,7 +312,8 @@ class TournamentsController extends Controller
                 <i class="fa fa-times" aria-hidden="true"></i>
                 This promotion code could not be found. 
               </span>',
-            ); 
+            );  
+            
             //==================================// 
             if($request->status=="U"){
                 $tems=DB::table('cart_sport_tems') 

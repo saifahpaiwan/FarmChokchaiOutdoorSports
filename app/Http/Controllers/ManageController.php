@@ -114,9 +114,6 @@ class ManageController extends Controller
     public function detailSports(Request $request)
     {
         if(isset($request)){   
-            // https://demo.chokchaiinternational.com/playerinfo/RDF-8-18-2-3-13
-            // https://demo.chokchaiinternational.com/playerinfo/TDF-3-3-1-2-1
-            // https://demo.chokchaiinternational.com/playerinfo/TDF-1-3-1-2-1
             $Qrcode=$request->Qrcode;  
             $Code1=""; $Bill_id=null; $Tems_id=null;
             $Sport_id=null; $SportType_id=null; $Users_id=null; 
@@ -128,8 +125,7 @@ class ManageController extends Controller
                 if(!empty($Code1)){ 
                     $explode2=explode("-",$Code1); 
                     $Bill_id=$explode2[1];
-                    $Tems_id=$explode2[2];
-                    // $Sport_id=$explode2[3];
+                    $Tems_id=$explode2[2]; 
                     $Sport_id=$request->sportID;
                     $SportType_id=$explode2[4];
                     $Users_id=$explode2[5];
@@ -148,7 +144,7 @@ class ManageController extends Controller
             'cart_sport_tems.id as tems_id', 'cart_sport_tems.team as team',  
             'cart_sport_tems.sport_id as sport_id', 'cart_sport_tems.sporttype_id as sporttype_id',
             'users_tems.name as Temusers_fname', 'users_tems.lname as Temusers_lname', 'tournament_types.name_th as tournamentTypeName',
-            'generations.detail_th as generations', 'cart_sport_tems.option_id as option_id',
+            'generations.name_th as generations', 'cart_sport_tems.option_id as option_id',
 
             'race_programs.receiver_name as receiver_name', 'race_programs.receiver_tel as receiver_tel',
             )    
@@ -222,8 +218,7 @@ class ManageController extends Controller
                         foreach($option as $arr){
                             $option_workers.=$arr->topic." ".$arr->detail." ";
                         }
-                        $itmes[$row->bill_id]['workers'][$row->tems_id]['workers_option']=$option_workers;
-
+                        $itmes[$row->bill_id]['workers'][$row->tems_id]['workers_option']=$option_workers; 
                         $itmes[$row->bill_id]['workers'][$row->tems_id]['workers_race_id']=$row->race_id;
                         $itmes[$row->bill_id]['workers'][$row->tems_id]['workers_BIB']=$row->BIB;
                         $itmes[$row->bill_id]['workers'][$row->tems_id]['workers_raceStatus']=$row->raceStatus;
@@ -233,6 +228,7 @@ class ManageController extends Controller
                     }
                 }
             } 
+ 
             return $itmes;
         }
     }

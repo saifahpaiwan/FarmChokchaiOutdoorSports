@@ -49,7 +49,7 @@ class PromotioncodeController extends Controller
             "firstPromotionCodes"   => $firstPromotionCodes,
             "GetPromotionCodes"     => $GetPromotionCodes,
             "get_id"                => $get_id,
-        ); 
+        );  
         return view('admin.promotionupdate', compact('data'));
     }   
 
@@ -168,9 +168,7 @@ class PromotioncodeController extends Controller
             ->leftJoin('promotion_codes_sponsors', 'promotion_codes.id', '=', 'promotion_codes_sponsors.code_id')  
             ->leftJoin('sponsors', 'promotion_codes_sponsors.sponsors_id', '=', 'sponsors.id')  
             
-            ->where('tournaments.status_event', 1) 
-            ->where('tournaments.status_register', 1) 
-            ->where('tournaments.status_pomotion', 1) 
+            ->where('tournaments.status_event', 1)  
             ->where('promotion_codes.id', $request->id) 
             ->get(); 
 
