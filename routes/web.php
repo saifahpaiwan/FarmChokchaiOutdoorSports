@@ -103,8 +103,9 @@ Route::middleware(['isAdmin'])->group(function () {
 
     Route::get('/dashboard', [ManageController::class, 'dashboard'])->name('dashboard'); 
     Route::get('/checkOrderslist', [ManageController::class, 'checkOrderslist'])->name('checkOrderslist');
+    Route::get('/applicantlist', [ManageController::class, 'applicantlist'])->name('applicantlist'); 
     Route::get('/sportmanlist', [ManageController::class, 'sportmanlist'])->name('sportmanlist'); 
-    
+     
     Route::get('/racePrograms/{id}', [ManageController::class, 'racePrograms'])->name('racePrograms'); 
     Route::get('/registerQRcode/{id}', [ManageController::class, 'registerQRcode'])->name('registerQRcode'); 
     Route::post('detailSports', [ManageController::class, 'detailSports'])->name('detailSports.post'); 
@@ -115,6 +116,7 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::get('datatableBill', [ManageController::class, 'datatableBill'])->name('datatableBill.post'); 
     Route::post('QueryBill', [ManageController::class, 'QueryBill'])->name('QueryBill.post');
     Route::get('generatePDF_bill', [ManageController::class, 'generatePDF_bill'])->name('generatePDF_bill.post');
+    Route::get('generatePDF_applicant', [ManageController::class, 'generatePDF_applicant'])->name('generatePDF_applicant.post'); 
     Route::get('generatePDF_sportman', [ManageController::class, 'generatePDF_sportman'])->name('generatePDF_sportman.post'); 
     Route::get('generatePDF_invoice', [ManageController::class, 'generatePDF_invoice'])->name('generatePDF_invoice.post'); 
     Route::post('confirm_bill', [ManageController::class, 'confirm_bill'])->name('confirm_bill.post');

@@ -45,6 +45,14 @@ class ManageController extends Controller
         return view('admin.checkOrderslist', compact('data'));
     }   
 
+    public function applicantlist()
+    {    
+        $data=array(
+            "Querytournaments" => $this->Query_event(null),
+        ); 
+        return view('admin.applicantlist', compact('data'));
+    } 
+    
     public function sportmanlist()
     {    
         $data=array(
@@ -335,7 +343,10 @@ class ManageController extends Controller
         race_programs.bill_id as bill_id, race_programs.tems_id as tems_id, 
         race_programs.tournaments_id as tournaments_id, race_programs.tournamentTypes_id as tournamentTypes_id,
         race_programs.users_id as users_id, bill_tems.order_number as order_number, bill_tems.created_at as created_at,
-        bill_tems.payment_status as payment_status, bill_tems.check_payment as check_payment
+        bill_tems.payment_status as payment_status, bill_tems.check_payment as check_payment,
+
+        race_programs.finish as finish, race_programs.DNF as DNF, race_programs.NRF as NRF, 
+        race_programs.start_time as start_time, race_programs.end_time as end_time 
 
         from `race_programs` 
         left join `users` on `race_programs`.`users_id` = `users`.`id` 
@@ -348,6 +359,40 @@ class ManageController extends Controller
         order by bill_tems.id asc'); 
         return $data;
     }
+
+    function TimeDiff($time1,$time2){ 
+        return (strtotime($time2) - strtotime($time1))/ ( 60 * 60 );
+    }
+    function gen_Gunstart($gunstart){
+        if($gunstart == '99:59:59'){ 
+            $result = "00:00:00";
+        }else{
+            $result = $gunstart;
+        }
+        return $result;
+    }
+    function calculate_time_span($gunstart,$date){	
+        $from_time = $this->gen_Gunstart($gunstart);
+        $seconds  = strtotime($date) - strtotime($from_time);
+        $months = floor($seconds / (3600*24*30));
+        $day = floor($seconds / (3600*24));
+        $hours = floor($seconds / 3600);
+        $mins = floor(($seconds - ($hours*3600)) / 60);
+        $secs = floor($seconds % 60);
+
+        if($seconds < 60)
+            $time = $secs." วินาที";
+        else if($seconds < 60*60 )
+            $time = $mins." นาที ".$secs." วินาที";
+        else if($seconds < 24*60*60)
+            $time = $hours." ชั่วโมง ".$mins." นาที ".$secs." วินาที";
+        else if($seconds < 24*60*60)
+            $time = $day." วัน ".$hours." ชั่วโมง ".$mins." นาที ".$secs." วินาที";
+        else
+            $time = $months." month ago";
+          
+        return $time;
+      }
 
     public function datatableReportSportsman(Request $request) 
     {    
@@ -362,7 +407,7 @@ class ManageController extends Controller
                 return $row->fname." ".$row->lname;
             }) 
             ->addColumn('bib', function($row){    
-                return '<b>'.$row->BIB.'</b>';
+                return '<b><i class="mdi mdi-cpu-32-bit"></i> '.$row->BIB.'</b>';
             }) 
             ->addColumn('tournamentsName', function($row){    
                 return $row->tournamentsName;
@@ -372,6 +417,19 @@ class ManageController extends Controller
             }) 
             ->addColumn('generationsName', function($row){    
                 return $row->generationsName;
+            })
+            ->addColumn('status_race', function($row){   
+                $status="";
+                if($row->status==1){
+                    $status='<span class="badge badge-danger"> ยังไม่ลงทะเบียน <i class="icon-close"></i></span>';
+                } else if($row->status==2){
+                    if($row->finish==1){
+                        $status='<span class="badge badge-success"> ทำการแข่งขันสำเร็จ <i class="icon-check"></i></span>';
+                    } else {
+                        $status='<span class="badge badge-success"> ลงทะเบียนแล้ว <i class="icon-check"></i></span>';
+                    } 
+                }
+                return $status;
             }) 
             ->addColumn('payment_status', function($row){   
                 $status=""; 
@@ -409,7 +467,21 @@ class ManageController extends Controller
                 ออกใบกำกับภาษี <i class="mdi mdi-file-document-box-check-outline"></i>  </button>';
                 return '<div class="text-right">'.$button.'</div>';
             })   
-            ->rawColumns(['order_number', 'name', 'bib', 'tournamentsName', 'tournamentTypesName', 'generationsName', 'payment_status', 'created_at', 'btnStatus'])
+            ->addColumn('competition', function($row){    
+                $time="-"; $competition=""; $DNF=""; $NRF="";
+                if($row->start_time!="" && $row->end_time!=""){
+                    $time=$this->calculate_time_span($row->start_time, $row->end_time); 
+                }
+                if($row->DNF==1){
+                    $DNF=" DNF "; 
+                }
+                if($row->NRF==1){
+                    $NRF=" NRF ";
+                }
+                $competition=$time.$DNF.$NRF;
+                return $competition;
+            })
+            ->rawColumns(['order_number', 'name', 'bib', 'tournamentsName', 'tournamentTypesName', 'generationsName', 'payment_status', 'created_at', 'btnStatus', 'status_race', 'competition'])
             ->make(true);
         }
     }
@@ -590,10 +662,21 @@ class ManageController extends Controller
         return @$pdf->stream(); 
     }  
 
-    public function generatePDF_sportman()
+    public function generatePDF_applicant()
     {   
         $data=array(
             'title' => 'รายการผู้สมัครเข้าแข่งขัน', 
+            'Query_Sportsman' => $this->Query_Sportsman($_GET['sport_id'], $_GET['keyword'], $_GET['race_id'], NULL),
+        ); 
+        // return view('myPDF.applicant', compact('data'));
+        $pdf = PDF::loadView('myPDF.applicant', compact('data')); 
+        return @$pdf->stream(); 
+    }   
+
+    public function generatePDF_sportman()
+    {   
+        $data=array(
+            'title' => 'รายการผู้เข้าแข่งขัน', 
             'Query_Sportsman' => $this->Query_Sportsman($_GET['sport_id'], $_GET['keyword'], $_GET['race_id'], NULL),
         ); 
         // return view('myPDF.sportman', compact('data'));

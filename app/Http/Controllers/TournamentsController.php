@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Session;
 
 use Illuminate\Support\Facades\Mail;
-use App\Mail\storeMail_Order;
+use App\Mail\storeMail_Order; 
 
 class TournamentsController extends Controller
 {
@@ -322,7 +322,9 @@ class TournamentsController extends Controller
                 ->first();   
 
                 $first=DB::table('promotion_codes') 
-                ->select('*')   
+                ->select('*')  
+                ->leftJoin('tournaments', 'promotion_codes.sport_id', '=', 'tournaments.id')
+                ->where('tournaments.status_pomotion', 1)    
                 ->where('promotion_codes.code', $request->code)
                 ->where('promotion_codes.sport_id', intval($request->sport_id))  
                 ->where('promotion_codes.status', 2)
@@ -341,6 +343,8 @@ class TournamentsController extends Controller
                 } else {
                     $first=DB::table('promotion_codes') 
                     ->select('*')   
+                    ->leftJoin('tournaments', 'promotion_codes.sport_id', '=', 'tournaments.id')
+                    ->where('tournaments.status_pomotion', 1)
                     ->where('promotion_codes.code', $request->code)
                     ->where('promotion_codes.sport_id', intval($request->sport_id))  
                     ->where('promotion_codes.status', 1)
@@ -360,6 +364,8 @@ class TournamentsController extends Controller
             } else {
                 $first=DB::table('promotion_codes') 
                 ->select('*')   
+                ->leftJoin('tournaments', 'promotion_codes.sport_id', '=', 'tournaments.id')
+                ->where('tournaments.status_pomotion', 1)
                 ->where('promotion_codes.code', $request->code)
                 ->where('promotion_codes.sport_id', $request->sport_id)  
                 ->where('promotion_codes.status', 1)
@@ -828,23 +834,27 @@ class TournamentsController extends Controller
         }
         
         if($tournament->function=="O"){
-            $data = DB::select('select generations.id as g_id, generations.detail_th as detail_th from `generations`   
+            $data = DB::select('select generations.id as g_id, generations.name_th as name_th, generations.name_en as name_en from `generations`   
             where `generations`.`tournament_id` = '.$request->sport_id.' 
             and `generations`.`tournament_type_id` = '.$request->rang.'   
             and `generations`.`sex` = "'.$user->sex.'" '); 
         } else if($tournament->function=="T"){
-            $data = DB::select('select generations.id as g_id, generations.detail_th as detail_th from `generations`   
+            $data = DB::select('select generations.id as g_id, generations.name_th as name_th, generations.name_en as name_en from `generations`   
             where `generations`.`tournament_id` = '.$request->sport_id.' 
             and `generations`.`tournament_type_id` = '.$request->rang.'   
             and `generations`.`sex` = "'.$user->sex.'" 
             and `generations`.`age_min` <= '.$age.' 
             and `generations`.`age_max` >= '.$age); 
-        }  
- 
+        }   
+
         $items=[];
         foreach($data as $key=>$row){
+            $detail=$row->name_th;
+            if(config('app.locale')=="en"){
+                $detail=$row->name_en;
+            }
             $items['g_id'] = $row->g_id;
-            $items['detail_th'] =  $row->detail_th;
+            $items['detail_th'] =  $detail;
         }
          
         $array=array(

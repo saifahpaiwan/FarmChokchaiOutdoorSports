@@ -292,8 +292,8 @@ class HomeController extends Controller
     {
         $id=Auth::user()->id;  
         $data=DB::table('cart_sport_tems') 
-        ->select('cart_sport_tems.sport_id as sport_id', 'cart_sport_tems.id as tems_id', 'tournaments.name_th as tournaments_name',
-        'tournament_types.name_th as tournamentTypes_name', 'generations.name_th as generationsName',
+        ->select('cart_sport_tems.sport_id as sport_id', 'cart_sport_tems.id as tems_id', 'tournaments.name_th as tournaments_name', 'tournaments.name_en as tournaments_name_en',
+        'tournament_types.name_th as tournamentTypes_name',  'tournament_types.name_en as tournamentTypes_name_en', 'generations.name_th as generationsName', 'generations.name_en as generationsName_en', 
         'cart_sport_tems.price_total as price_total', 'cart_sport_tems.price_discount as price_discount', 'cart_sport_tems.net_total as net_total',
         'users.name as username_f', 'users.lname as username_l', 'cart_sport_tems.option_id as option_id',
         'tournaments.race_type as raceType', 'cart_sport_tems.code as code')   
@@ -322,8 +322,11 @@ class HomeController extends Controller
                 $items[$key]['sport_id'] = $row->sport_id;
                 
                 $items[$key]['tournaments_name'] = $row->tournaments_name;
+                $items[$key]['tournaments_name_en'] = $row->tournaments_name_en; 
                 $items[$key]['tournamentTypes_name'] = $row->tournamentTypes_name;
+                $items[$key]['tournamentTypes_name_en'] = $row->tournamentTypes_name_en;
                 $items[$key]['generationsName'] = $row->generationsName;
+                $items[$key]['generationsName_en'] = $row->generationsName_en;
                 $items[$key]['name'] = $row->username_f." ".$row->username_l;
                 $items[$key]['price_total'] = $row->price_total;
                 $items[$key]['price_discount'] = $row->price_discount;
@@ -354,10 +357,11 @@ class HomeController extends Controller
         $data=DB::table('bill_tems') 
         ->select('bill_tems.id as bill_id', 'bill_tems.order_number as order_number', 
         'bill_tems.price_total as price_total', 'bill_tems.price_discount as price_discount', 'bill_tems.net_total as net_total',
-        'bill_tems.created_at as created_at', 'bill_tems.updated_at as updated_at', 'tournaments.name_th as tournamentName', 'tournaments.race_type as raceType',
-        'users.name as users_fname',  'users.lname as users_lname', 'cart_sport_tems.id as cart_sport_id', 'cart_sport_tems.code as code',
+        'bill_tems.created_at as created_at', 'bill_tems.updated_at as updated_at', 'tournaments.name_th as tournamentName', 'tournaments.name_en as tournamentName_en',
+        'tournaments.race_type as raceType',
+        'users.name as users_fname',  'users.lname as users_lname', 'cart_sport_tems.id as cart_sport_id', 'promotion_codes.code as code', 'promotion_codes.detail as code_detail', 
         'users_team.name as users_team_fname',  'users_team.lname as users_team_lname', 'users_team.sex as sex', 'users_team.id as users_tems_id',
-        'tournament_types.name_th as tournament_type_name', 'generations.detail_th as generations', 'cart_sport_tems.option_id as option_id',
+        'tournament_types.name_th as tournament_type_name', 'tournament_types.name_en as tournament_type_name_en', 'generations.name_th as generations', 'generations.name_en as generations_en', 'cart_sport_tems.option_id as option_id',
         'bill_tems.payment_status as payment_status', 'bill_tems.payment_type as payment_type', 'bill_tems.date_transfered as date_transfered',
         'bill_tems.check_payment as check_payment', 'cart_sport_tems.sport_id as sport_id', 'cart_sport_tems.sporttype_id as sporttype_id',
         'race_programs.BIB as BIB', 'race_programs.status as race_status', 'tournaments.abbreviation as abbreviation',
@@ -367,6 +371,7 @@ class HomeController extends Controller
         )   
         ->leftJoin('users', 'bill_tems.users_id', '=', 'users.id')    
         ->leftJoin('cart_sport_tems', 'bill_tems.id', '=', 'cart_sport_tems.bill_id') 
+        ->leftJoin('promotion_codes', 'cart_sport_tems.promotioncode_id', '=', 'promotion_codes.id') 
         ->leftJoin('users as users_team', 'cart_sport_tems.user_id', '=', 'users_team.id') 
         ->leftJoin('tournaments', 'cart_sport_tems.sport_id', '=', 'tournaments.id') 
         ->leftJoin('tournament_types', 'cart_sport_tems.sporttype_id', '=', 'tournament_types.id')  
@@ -423,13 +428,18 @@ class HomeController extends Controller
                 
                 $items[$row->bill_id]['datalist'][$row->cart_sport_id]['cart_sport_id'] = $row->cart_sport_id;
                 $items[$row->bill_id]['datalist'][$row->cart_sport_id]['tournamentName'] = $row->tournamentName;
+                $items[$row->bill_id]['datalist'][$row->cart_sport_id]['tournamentName_en'] = $row->tournamentName_en; 
                 $items[$row->bill_id]['datalist'][$row->cart_sport_id]['raceType'] = $raceType;
                 $items[$row->bill_id]['datalist'][$row->cart_sport_id]['code'] = $row->code;
+                $items[$row->bill_id]['datalist'][$row->cart_sport_id]['code_detail'] = $row->code_detail;
                 $items[$row->bill_id]['datalist'][$row->cart_sport_id]['users_team_fname'] = $row->users_team_fname;
                 $items[$row->bill_id]['datalist'][$row->cart_sport_id]['users_team_lname'] = $row->users_team_lname; 
   
                 $items[$row->bill_id]['datalist'][$row->cart_sport_id]['tournament_type_name'] = $row->tournament_type_name;
+                $items[$row->bill_id]['datalist'][$row->cart_sport_id]['tournament_type_name_en'] = $row->tournament_type_name_en;
                 $items[$row->bill_id]['datalist'][$row->cart_sport_id]['generations'] = $row->generations;
+                $items[$row->bill_id]['datalist'][$row->cart_sport_id]['generations_en'] = $row->generations_en;
+                
                 $items[$row->bill_id]['datalist'][$row->cart_sport_id]['option'] = $option_arr;
 
                 $items[$row->bill_id]['datalist'][$row->cart_sport_id]['temsPrice_total'] = number_format($row->temsPrice_total, 2);
