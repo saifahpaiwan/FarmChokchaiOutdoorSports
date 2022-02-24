@@ -197,7 +197,7 @@ class MgeventController extends Controller
 
             if(isset($request->tournament)){
                 if(count($request->tournament)>0){
-                    $index=1;
+                    $index=1;  $index_g=1;
                     foreach($request->tournament as $row){
                         $data_t=array(
                             "order_num" => $index,
@@ -236,9 +236,8 @@ class MgeventController extends Controller
                         }  
 
                         if(isset($row['generationsarr'])){
-                            if(count($row['generationsarr'])>0){
-                                $index_g=1;
-                                foreach($row['generationsarr'] as $row_g){
+                            if(count($row['generationsarr'])>0){  
+                                foreach($row['generationsarr'] as $row_g){ 
                                     $data_g=array(
                                         "order_num" => $index_g,
                                         

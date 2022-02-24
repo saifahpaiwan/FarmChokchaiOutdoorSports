@@ -56,7 +56,7 @@ class storeMail_Order extends Mailable
         'bill_tems.created_at as created_at', 'tournaments.name_th as tournamentName', 'tournaments.race_type as raceType',
         'users.name as users_fname',  'users.lname as users_lname', 'cart_sport_tems.id as cart_sport_id', 'cart_sport_tems.code as code',
         'users_team.name as users_team_fname',  'users_team.lname as users_team_lname', 'users_team.sex as sex', 'users_team.id as users_tems_id',
-        'tournament_types.name_th as tournament_type_name', 'generations.detail_th as generations', 'cart_sport_tems.option_id as option_id',
+        'tournament_types.name_th as tournament_type_name', 'generations.name_th as generations', 'cart_sport_tems.option_id as option_id',
         'bill_tems.payment_status as payment_status', 'bill_tems.payment_type as payment_type', 'bill_tems.date_transfered as date_transfered',
         'bill_tems.check_payment as check_payment', 'cart_sport_tems.sport_id as sport_id', 'cart_sport_tems.sporttype_id as sporttype_id',
         'race_programs.BIB as BIB', 'race_programs.status as race_status', 'tournaments.abbreviation as abbreviation')   

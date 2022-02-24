@@ -217,6 +217,8 @@ class ManageController extends Controller
                         $itmes[$row->bill_id]['workers'][$row->tems_id]['workers_name']=$row->Temusers_fname." ".$row->Temusers_lname;
                         $itmes[$row->bill_id]['workers'][$row->tems_id]['workers_generations']=$row->generations;
                         $itmes[$row->bill_id]['workers'][$row->tems_id]['workers_tournamentTypeName']=$row->tournamentTypeName;
+                        $itmes[$row->bill_id]['workers'][$row->tems_id]['workers_receiver_name']=$row->receiver_name; 
+                        $itmes[$row->bill_id]['workers'][$row->tems_id]['workers_receiver_tel']=$row->receiver_tel; 
 
                         $option_workers=""; 
                         $option=DB::table('option_items') 
@@ -242,18 +244,18 @@ class ManageController extends Controller
     }
 
     public function registerSave(Request $request)
-    {
+    { 
         if(isset($request)){
-            $data_set=array(
-                "status" => 1,
-                "receiver_name" => null,
-                "receiver_tel"  => null, 
-                "updated_at"    => null,
-            );
-            DB::table('race_programs') 
-            ->where('race_programs.bill_id', $request->bill_id) 
-            ->where('race_programs.tournaments_id', $request->sport_id) 
-            ->update($data_set); 
+            // $data_set=array(
+            //     "status" => 1,
+            //     "receiver_name" => null,
+            //     "receiver_tel"  => null, 
+            //     "updated_at"    => null,
+            // );
+            // DB::table('race_programs') 
+            // ->where('race_programs.bill_id', $request->bill_id) 
+            // ->where('race_programs.tournaments_id', $request->sport_id) 
+            // ->update($data_set); 
 
             if(!empty($request->sportsmanArr)){
                 $data_s=array(

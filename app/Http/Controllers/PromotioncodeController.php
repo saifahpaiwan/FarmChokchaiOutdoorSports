@@ -27,7 +27,7 @@ class PromotioncodeController extends Controller
             "Querytournaments" => $Query->Query_event(null),
         ); 
         return view('admin.promotioncreate', compact('data'));
-    }  
+    }   
     
     public function promotionupdate($get_id)
     {    
@@ -341,6 +341,15 @@ class PromotioncodeController extends Controller
         $pdf = PDF::loadView('myPDF.promocode', compact('data')); 
         return @$pdf->stream(); 
     }   
+
+    public function promotion_exportcode()
+    {     
+        $data=array(
+            'title' => 'รายการโปรโมชั่นโค้ด', 
+            'Query_Promocode' => $data=$this->Query_Promocode($_GET['keyword'], $_GET['sport_id'], $_GET['status_id']), 
+        ); 
+        return view('admin.promotion_exportcode', compact('data'));
+    } 
      
 }
 

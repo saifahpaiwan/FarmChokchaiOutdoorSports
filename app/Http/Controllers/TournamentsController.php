@@ -549,10 +549,8 @@ class TournamentsController extends Controller
                     }
                 }
             }
-
-            if(DB::table('cart_sport_tems')->where('cart_sport_tems.id', $request->id)->delete()){
-                $data=DB::table('bill_tems')->where('bill_tems.id', $request->id)->delete();
-            }
+            DB::table('cart_sport_tems')->where('cart_sport_tems.id', $request->id)->delete();
+            $data=DB::table('bill_tems')->where('bill_tems.id', $request->id)->delete(); 
             return $data;
         }
     }
@@ -1024,7 +1022,8 @@ class TournamentsController extends Controller
             ->max('race_programs.id');
 
             if(!empty($check_bib)){
-                $bib_row=DB::table('race_programs')->select('race_programs.BIB as BIB')->where('race_programs.id', $check_bib)->first(); 
+                $bib_row=DB::table('race_programs')->select('race_programs.BIB as BIB')
+                ->where('race_programs.id', $check_bib)->first(); 
                 $num=intval(substr($bib_row->BIB,1));
                 $run=($num+1); 
                 if(strlen($run)==1){
@@ -1037,7 +1036,6 @@ class TournamentsController extends Controller
             } else {
                 $run_num=$row_generations->order_num."001";
             } 
-           
         }
         return $run_num;
     }

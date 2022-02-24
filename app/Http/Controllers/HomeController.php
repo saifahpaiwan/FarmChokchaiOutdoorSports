@@ -520,7 +520,8 @@ class HomeController extends Controller
         if(!empty($id)){
             $data=DB::table('cart_sport_tems') 
             ->select('cart_sport_tems.id as tems_id', 'users.name as fname', 'users.lname as lname', 'users.sex as sex',
-            'tournament_types.name_th as tournament_name', 'generations.detail_th as generations_name') 
+            'tournament_types.name_th as tournament_name', 'tournament_types.name_en as tournament_name_en',
+            'generations.name_th as generations_name', 'generations.name_en as generations_name_en') 
             ->leftJoin('users', 'cart_sport_tems.user_id', '=', 'users.id')
             ->leftJoin('tournament_types', 'cart_sport_tems.sporttype_id', '=', 'tournament_types.id')
             ->leftJoin('generations', 'cart_sport_tems.generation_id', '=', 'generations.id')
